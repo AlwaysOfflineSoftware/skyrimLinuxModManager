@@ -74,7 +74,7 @@ Begin DesktopWindow AboutScreen
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "MW5 Linux Modder"
+      Text            =   "Skyrim Linux Modder"
       TextAlignment   =   2
       TextColor       =   &c000000
       Tooltip         =   ""
@@ -198,7 +198,7 @@ Begin DesktopWindow AboutScreen
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "The MW5 Linux Modder is the first MW5 mod manager made for Linux. Too long has it been that Windows is the premiere modding platform for MW5 (and many other games) and Always Offline Software is going to change that!"
+      Text            =   "The Skyrim Linux Modder is the first Skyrim mod manager made for Linux. Too long has it been that Windows is the premiere modding platform for Skyrim (and many other games) and Always Offline Software is going to change that!"
       TextAlignment   =   1
       TextColor       =   &c000000
       Tooltip         =   ""

@@ -10,7 +10,7 @@ Begin DesktopWindow SettingsScreen
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   278
+   Height          =   240
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -49,7 +49,7 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   232
+      Top             =   194
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -80,7 +80,7 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   232
+      Top             =   194
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -159,79 +159,6 @@ Begin DesktopWindow SettingsScreen
       Visible         =   True
       Width           =   428
    End
-   Begin DesktopLabel lbl_ZippedMods
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   27
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Zipped Mods Folder:"
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   98
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   142
-   End
-   Begin DesktopTextField txt_ZippedMods
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   27
-      Hint            =   "/home/user/Downloads/SkyrimNexusMods/"
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   174
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   98
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   452
-   End
    Begin DesktopLabel lbl_7ZipCommand
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -258,7 +185,7 @@ Begin DesktopWindow SettingsScreen
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   137
+      Top             =   98
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -290,7 +217,7 @@ Begin DesktopWindow SettingsScreen
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   175
+      Top             =   136
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -330,7 +257,7 @@ Begin DesktopWindow SettingsScreen
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   137
+      Top             =   98
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -371,7 +298,7 @@ Begin DesktopWindow SettingsScreen
       TextAlignment   =   0
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   175
+      Top             =   136
       Transparent     =   False
       Underline       =   False
       ValidationMask  =   ""
@@ -404,7 +331,7 @@ Begin DesktopWindow SettingsScreen
       TextAlignment   =   0
       TextColor       =   &cFF000000
       Tooltip         =   ""
-      Top             =   214
+      Top             =   176
       Transparent     =   False
       Underline       =   False
       Visible         =   False
@@ -545,38 +472,6 @@ Begin DesktopWindow SettingsScreen
       Visible         =   True
       Width           =   80
    End
-   Begin DesktopButton btn_BrowseZipModFolder
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Cancel          =   False
-      Caption         =   "Browse"
-      Default         =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   28
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   638
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MacButtonStyle  =   0
-      Scope           =   2
-      TabIndex        =   16
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   97
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   80
-   End
    Begin DesktopButton btn_Revert
       AllowAutoDeactivate=   True
       Bold            =   False
@@ -591,18 +486,18 @@ Begin DesktopWindow SettingsScreen
       Index           =   -2147483648
       Italic          =   False
       Left            =   408
-      LockBottom      =   False
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
+      LockRight       =   True
+      LockTop         =   False
       MacButtonStyle  =   0
       Scope           =   0
       TabIndex        =   17
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Will load the backup of the plugins.txt file created on program first run."
-      Top             =   232
+      Top             =   194
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -616,7 +511,6 @@ End
 		Sub Opening()
 		  Self.txt_DataFolder.Text= App.skyrimData.NativePath
 		  Self.txt_PluginFile.Text= App.BaseDir.NativePath
-		  Self.txt_ZippedMods.Text= App.zippedModsFolder.NativePath
 		  Self.txt_RarCommand.Text= app.commandRar
 		  Self.txt_7ZipCommand.Text= app.command7Zip
 		  
@@ -631,20 +525,16 @@ End
 	#tag Event
 		Sub Pressed()
 		  If(Self.txt_PluginFile.Text.Trim<>"" And _
-		    Self.txt_ZippedMods.Text.Trim<>"" And _
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
 		    App.command7Zip= Self.txt_7ZipCommand.Text
 		    App.commandRar= Self.txt_RarCommand.Text
 		    
 		    App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
-		    App.zippedModsFolder= New FolderItem(Self.txt_ZippedMods.Text)
 		    App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
 		    
 		    Utils.WriteFile(App.savedSettings,"BaseDir|"+_
 		    App.BaseDir.NativePath, True)
-		    Utils.WriteFile(App.savedSettings,"zippedModsFolder|"+_
-		    App.zippedModsFolder.NativePath+ EndOfLine, False)
 		    Utils.WriteFile(App.savedSettings,"command7Zip|"+_
 		    App.command7Zip+ EndOfLine, False)
 		    Utils.WriteFile(App.savedSettings,"commandRar|"+_
@@ -704,19 +594,6 @@ End
 		  If(folderPath<>Nil) Then
 		    Self.txt_PluginFile.Text= folderPath.NativePath
 		  End
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btn_BrowseZipModFolder
-	#tag Event
-		Sub Pressed()
-		  Var folderPath As folderItem= Utils.SelectTargetDialog("home",True)
-		  
-		  If(folderPath<>Nil) Then
-		    Self.txt_ZippedMods.Text= folderPath.NativePath
-		  End
-		  
 		  
 		End Sub
 	#tag EndEvent

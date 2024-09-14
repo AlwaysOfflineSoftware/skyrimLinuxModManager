@@ -441,13 +441,10 @@ End
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
 		    App.BaseDir= FolderItem(Self.txt_PluginFile)
-		    App.zippedModsFolder= FolderItem(Self.txt_ZippedMods)
 		    App.skyrimData= FolderItem(Self.txt_DataFolder)
 		    
 		    Utils.WriteFile(App.savedSettings,"BaseDir|"+_
 		    App.BaseDir.NativePath, True)
-		    Utils.WriteFile(App.savedSettings,"zippedModsFolder|"+_
-		    App.zippedModsFolder.NativePath, False)
 		    Utils.WriteFile(App.savedSettings,"command7Zip|"+_
 		    App.command7Zip, False)
 		    Utils.WriteFile(App.savedSettings,"commandRar|"+_

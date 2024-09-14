@@ -31,13 +31,13 @@ Protected Module SkyrimModHandler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub BatchInstallMods(modType as integer = 0)
+		Sub BatchInstallMods(zipModFolder as folderItem, modType as integer = 0)
 		  
 		  Var checkExtensionVal() As String
 		  Var skipCount As Integer= 0
 		  Var installCount As Integer= 0
 		  
-		  For Each child As FolderItem In App.zippedModsFolder.Children
+		  For Each child As FolderItem In zipModFolder.Children
 		    If(child.IsFolder Or child.IsAlias) Then
 		      Continue
 		    End
@@ -70,7 +70,7 @@ Protected Module SkyrimModHandler
 		  
 		  Utils.ErrorHandler(1,"Batch install completed!",_
 		  "Mods probably installed: " + installCount.ToString + EndOfLine +_
-		   "Files skipped: " + skipCount.ToString)
+		  "Files skipped: " + skipCount.ToString)
 		End Sub
 	#tag EndMethod
 
@@ -103,7 +103,7 @@ Protected Module SkyrimModHandler
 		  
 		  
 		  Utils.ErrorHandler(3,"Unsupported archive format",_
-		   "Please extract manually and archive as a zip file")
+		  "Please extract manually and archive as a zip file")
 		  Return False
 		End Function
 	#tag EndMethod
@@ -121,8 +121,6 @@ Protected Module SkyrimModHandler
 		          
 		          If(splitLine(0)="BaseDir") Then
 		            App.BaseDir= New folderItem(splitLine(1))
-		          ElseIf(splitLine(0)="zippedModsFolder") Then
-		            App.zippedModsFolder= New folderItem(splitLine(1))
 		          ElseIf(splitLine(0)="commandZip") Then
 		            App.command7Zip= splitLine(1)
 		          ElseIf(splitLine(0)="commandRar") Then
@@ -250,8 +248,6 @@ Protected Module SkyrimModHandler
 		  
 		  App.configsFolder= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
 		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/")
-		  
-		  App.zippedModsFolder= SpecialFolder.UserHome.child("Downloads")
 		  
 		  App.savedSettings= app.configsFolder.child("settings.ini")
 		  

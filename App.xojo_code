@@ -52,10 +52,6 @@ Inherits DesktopApplication
 		skyrimData As folderItem
 	#tag EndProperty
 
-	#tag Property, Flags = &h0
-		zippedModsFolder As FolderItem
-	#tag EndProperty
-
 
 	#tag Constant, Name = COL_ENABLED, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant

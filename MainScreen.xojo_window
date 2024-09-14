@@ -543,8 +543,6 @@ End
 		  
 		  Utils.WriteFile(App.savedSettings,"BaseDir|"+_
 		  App.BaseDir.NativePath, True)
-		  Utils.WriteFile(App.savedSettings,"zippedModsFolder|"+_
-		  App.zippedModsFolder.NativePath+ EndOfLine, False)
 		  Utils.WriteFile(App.savedSettings,"commandZip|"+_
 		  App.command7Zip+ EndOfLine, False)
 		  Utils.WriteFile(App.savedSettings,"commandRar|"+_
@@ -833,8 +831,9 @@ End
 		Function ContextualMenuItemSelected(selectedItem As DesktopMenuItem) As Boolean
 		  Select Case selectedItem.Text
 		  Case "Batch Install"
-		    If(App.zippedModsFolder<>Nil) Then
-		      SkyrimModHandler.BatchInstallMods
+		    Var zippedModsFolder As folderitem= Utils.SelectTargetDialog("home", True)
+		    If(zippedModsFolder<>Nil) Then
+		      SkyrimModHandler.BatchInstallMods(zippedModsFolder)
 		    Else
 		      Utils.ErrorHandler(1,"Downloaded mods folder not defined",_
 		      "Please go into settings and set the folder that contains downloaded mods")
