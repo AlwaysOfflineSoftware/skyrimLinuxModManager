@@ -1,0 +1,40 @@
+#tag MultiImage
+Image img_Skyrim
+	#tag ImageRepresentation
+		SaveInfo = APHRcwECAQAAAABWL2hvbWUvaG9wZWxlc3NkZWNveS9Qcm9qZWN0cy9Yb2pvL0Rlc2t0b3BBcHBzL3NreXJpbUxpbnV4TW9kZGVyL0Fzc2V0cy9za3lyaW1MaW51eC5wbmcDAAAAAAEBBAAAAAABAAAAAAAAAA==
+		FullPath = /home/hopelessdecoy/Projects/Xojo/DesktopApps/skyrimLinuxModder/Assets/skyrimLinux.png
+		PartialPath = ..\..\DesktopApps\skyrimLinuxModder\Assets\skyrimLinux.png
+		#tag ImageSpecification
+			Comment = 
+			Device = 31
+			HSize = 80.00
+			Orientation = Any
+			Platform = 15
+			PPI = 72
+			VSize = 80.00
+		#tag EndImageSpecification
+	#tag EndImageRepresentation
+	#tag ImageRepresentation
+		#tag ImageSpecification
+			Comment = 
+			Device = 31
+			HSize = -1.00
+			Orientation = Any
+			Platform = 15
+			PPI = 144
+			VSize = -1.00
+		#tag EndImageSpecification
+	#tag EndImageRepresentation
+	#tag ImageRepresentation
+		#tag ImageSpecification
+			Comment = 
+			Device = 31
+			HSize = -1.00
+			Orientation = Any
+			Platform = 15
+			PPI = 216
+			VSize = -1.00
+		#tag EndImageSpecification
+	#tag EndImageRepresentation
+End Image
+#tag EndMultiImage
