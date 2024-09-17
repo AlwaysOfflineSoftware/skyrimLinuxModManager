@@ -87,7 +87,8 @@ Protected Module SkyrimModHandler
 		        Utils.ErrorHandler(3,"Unsupported archive format",_
 		        "Please extract manually and archive as a zip file, 7z will be supported later")
 		      Else
-		        Utils.ShellCommand(App.commandRar + " " + modToInstall.Name, False, False)
+		        // System.DebugLog(App.command7Zip + " " + """"+modToInstall.NativePath+"""")
+		        Utils.ShellCommand(App.command7Zip + " " + """"+modToInstall.NativePath+"""", False, False)
 		      End
 		      Return True
 		    ElseIf(item="rar") Then
@@ -95,7 +96,7 @@ Protected Module SkyrimModHandler
 		        Utils.ErrorHandler(3,"Unsupported archive format",_
 		        "Please extract manually and archive as a zip file, rar will be supported later")
 		      Else
-		        Utils.ShellCommand(App.commandRar + " " + modToInstall.Name, False, False)
+		        Utils.ShellCommand(App.commandRar + " " + """"+modToInstall.NativePath+"""", False, False)
 		      End
 		      Return True
 		    End
@@ -121,7 +122,7 @@ Protected Module SkyrimModHandler
 		          
 		          If(splitLine(0)="BaseDir") Then
 		            App.BaseDir= New folderItem(splitLine(1))
-		          ElseIf(splitLine(0)="commandZip") Then
+		          ElseIf(splitLine(0)="command7Zip") Then
 		            App.command7Zip= splitLine(1)
 		          ElseIf(splitLine(0)="commandRar") Then
 		            App.commandRar= splitLine(1)

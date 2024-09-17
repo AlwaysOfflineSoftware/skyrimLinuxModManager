@@ -543,7 +543,7 @@ End
 		  
 		  Utils.WriteFile(App.savedSettings,"BaseDir|"+_
 		  App.BaseDir.NativePath, True)
-		  Utils.WriteFile(App.savedSettings,"commandZip|"+_
+		  Utils.WriteFile(App.savedSettings,"command7Zip|"+_
 		  App.command7Zip+ EndOfLine, False)
 		  Utils.WriteFile(App.savedSettings,"commandRar|"+_
 		  App.commandRar+ EndOfLine, False)
