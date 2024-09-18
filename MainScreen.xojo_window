@@ -461,7 +461,7 @@ Begin DesktopWindow MainScreen
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Left Click: Choose a zip file that contains a Skyrim mod to install\nRight Click: This will batch install all the mods from a directory set in the settings"
+      Tooltip         =   "Left Click: Choose a zip file that contains a Skyrim mod to install\n"
       Top             =   96
       Transparent     =   False
       Underline       =   False
@@ -824,7 +824,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
-		  base.AddMenu(New MenuItem("Batch Install"))
+		  // base.AddMenu(New MenuItem("Batch Install"))
+		  // Right Click: This will batch install all the mods from a directory set in the settings
 		End Function
 	#tag EndEvent
 	#tag Event

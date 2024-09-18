@@ -52,14 +52,14 @@ Protected Module SkyrimModHandler
 		          skipCount= skipCount + 1
 		          Continue
 		        Else
-		          Utils.ShellCommand(App.command7Zip + " " + child.Name, False, False)
+		          Utils.ShellCommand(App.command7Zip + " " + """"+child.NativePath+"""", False, False)
 		        End
 		      ElseIf(item="rar") Then
 		        If(App.commandRar="") Then
 		          skipCount= skipCount + 1
 		          Continue
 		        Else
-		          Utils.ShellCommand(App.commandRar + " " + child.Name, False, False)
+		          Utils.ShellCommand(App.commandRar + " " + """"+child.NativePath+"""", False, False)
 		        End
 		      Else
 		        skipCount= skipCount + 1
