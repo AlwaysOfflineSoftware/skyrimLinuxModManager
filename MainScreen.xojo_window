@@ -461,7 +461,7 @@ Begin DesktopWindow MainScreen
       TabIndex        =   15
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Left Click: Choose a zip file that contains a Skyrim mod to install\n"
+      Tooltip         =   "Left Click: Choose a zip file that contains a Skyrim mod to install\nRight Click: This will batch install all the mods from a directory set in the settings"
       Top             =   96
       Transparent     =   False
       Underline       =   False
@@ -746,7 +746,6 @@ End
 		    Self.btn_LoadLoadout.Enabled= True
 		    Self.btn_DeleteLoadout.Enabled= True
 		  End
-		  system.DebugLog(me.SelectedRowIndex.ToString)
 		  
 		End Sub
 	#tag EndEvent
@@ -824,8 +823,8 @@ End
 	#tag EndEvent
 	#tag Event
 		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
-		  // base.AddMenu(New MenuItem("Batch Install"))
-		  // Right Click: This will batch install all the mods from a directory set in the settings
+		  base.AddMenu(New MenuItem("Batch Install"))
+		  
 		End Function
 	#tag EndEvent
 	#tag Event
@@ -835,9 +834,6 @@ End
 		    Var zippedModsFolder As folderitem= Utils.SelectTargetDialog("home", True)
 		    If(zippedModsFolder<>Nil) Then
 		      SkyrimModHandler.BatchInstallMods(zippedModsFolder)
-		    Else
-		      Utils.ErrorHandler(1,"Downloaded mods folder not defined",_
-		      "Please go into settings and set the folder that contains downloaded mods")
 		    End
 		  End Select
 		  

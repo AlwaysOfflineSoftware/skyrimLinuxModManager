@@ -32,80 +32,56 @@ Protected Module SkyrimModHandler
 
 	#tag Method, Flags = &h0
 		Sub BatchInstallMods(zipModFolder as folderItem, modType as integer = 0)
-		  
-		  Var checkExtensionVal() As String
-		  Var skipCount As Integer= 0
+		  Var installed As Boolean= False
 		  Var installCount As Integer= 0
 		  
 		  For Each child As FolderItem In zipModFolder.Children
+		    installed= False
+		    
 		    If(child.IsFolder Or child.IsAlias) Then
 		      Continue
-		    End
-		    checkExtensionVal= child.Name.Split(".")
-		    
-		    For Each item As String In checkExtensionVal
-		      If(item="zip") Then
-		        child.Unzip(App.SkyrimData)
-		        installCount= installCount + 1
-		      ElseIf(item="7z") Then
-		        If(App.command7Zip="") Then
-		          skipCount= skipCount + 1
-		          Continue
-		        Else
-		          Utils.ShellCommand(App.command7Zip + " " + """"+child.NativePath+"""", False, False)
-		        End
-		      ElseIf(item="rar") Then
-		        If(App.commandRar="") Then
-		          skipCount= skipCount + 1
-		          Continue
-		        Else
-		          Utils.ShellCommand(App.commandRar + " " + """"+child.NativePath+"""", False, False)
-		        End
-		      Else
-		        skipCount= skipCount + 1
-		        Continue
+		    Else
+		      installed= SkyrimModHandler.InstallMod(child,True)
+		      If(installed) Then
+		        installCount= installCount+1
 		      End
-		    Next
+		    End
+		    
 		  Next
 		  
 		  Utils.ErrorHandler(1,"Batch install completed!",_
-		  "Mods probably installed: " + installCount.ToString + EndOfLine +_
-		  "Files skipped: " + skipCount.ToString)
+		  "Mods probably installed: " + installCount.ToString)
+		  
 		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Function InstallMod(modToInstall as folderitem, modType as integer = 0) As Boolean
-		  Var checkExtensionVal() As String= modToInstall.Name.Split(".")
+		Function InstallMod(modToInstall as folderitem, batchmode as boolean = False, modType as integer = 0) As Boolean
+		  Var itemArr() As String= modToInstall.Name.Split(".")
+		  Var last As Integer= itemArr.LastIndex
 		  
-		  For Each item As String In checkExtensionVal
-		    If(item="zip") Then
-		      modToInstall.Unzip(App.SkyrimData)
-		      Return True
-		    ElseIf(item="7z") Then
-		      If(app.command7Zip="") Then
-		        Utils.ErrorHandler(3,"Unsupported archive format",_
-		        "Please extract manually and archive as a zip file, 7z will be supported later")
-		      Else
-		        // System.DebugLog(App.command7Zip + " " + """"+modToInstall.NativePath+"""")
-		        Utils.ShellCommand(App.command7Zip + " " + """"+modToInstall.NativePath+"""", False, False)
-		      End
-		      Return True
-		    ElseIf(item="rar") Then
-		      If(app.commandRar="") Then
-		        Utils.ErrorHandler(3,"Unsupported archive format",_
-		        "Please extract manually and archive as a zip file, rar will be supported later")
-		      Else
-		        Utils.ShellCommand(App.commandRar + " " + """"+modToInstall.NativePath+"""", False, False)
-		      End
-		      Return True
+		  System.DebugLog(itemArr(last))
+		  If(itemArr(last)="zip") Then
+		    modToInstall.Unzip(App.SkyrimData)
+		    Return True
+		  ElseIf(itemArr(last)="7z") Then
+		    System.DebugLog(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""))
+		    Utils.ShellCommand(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""), False, False)
+		    Return True
+		  ElseIf(itemArr(last)="rar") Then
+		    System.DebugLog(App.commandRar.Replace("%",""""+modToInstall.NativePath+""""))
+		    Utils.ShellCommand(App.commandRar.Replace("%",""""+modToInstall.NativePath+""""), False, False)
+		    Return True
+		  Else
+		    
+		    If(Not batchmode) Then
+		      Utils.ErrorHandler(3,"Unsupported archive format",_
+		      "Please extract manually and archive as a zip file")
 		    End
-		  Next
+		    
+		    Return False
+		  End
 		  
-		  
-		  Utils.ErrorHandler(3,"Unsupported archive format",_
-		  "Please extract manually and archive as a zip file")
-		  Return False
 		End Function
 	#tag EndMethod
 
@@ -122,10 +98,6 @@ Protected Module SkyrimModHandler
 		          
 		          If(splitLine(0)="BaseDir") Then
 		            App.BaseDir= New folderItem(splitLine(1))
-		          ElseIf(splitLine(0)="command7Zip") Then
-		            App.command7Zip= splitLine(1)
-		          ElseIf(splitLine(0)="commandRar") Then
-		            App.commandRar= splitLine(1)
 		          ElseIf(splitLine(0)="skyrimData") Then
 		            App.skyrimData= New folderItem(splitLine(1))
 		          End
@@ -249,6 +221,10 @@ Protected Module SkyrimModHandler
 		  
 		  App.configsFolder= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
 		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/")
+		  
+		  App.command7Zip= """"+SpecialFolder.CurrentWorkingDirectory.NativePath _
+		  + "SkyrimLinuxModder Resources/7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
+		  App.commandRar= App.command7Zip
 		  
 		  App.savedSettings= app.configsFolder.child("settings.ini")
 		  

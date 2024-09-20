@@ -10,7 +10,7 @@ Begin DesktopWindow SettingsScreen
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   240
+   Height          =   158
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -49,7 +49,7 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   194
+      Top             =   112
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -80,7 +80,7 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   194
+      Top             =   112
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -158,184 +158,6 @@ Begin DesktopWindow SettingsScreen
       ValidationMask  =   ""
       Visible         =   True
       Width           =   428
-   End
-   Begin DesktopLabel lbl_7ZipCommand
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   26
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   7
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "7Zip Command:"
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   98
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   142
-   End
-   Begin DesktopLabel lbl_RarCommand
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   26
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   8
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Rar Command:"
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   136
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   142
-   End
-   Begin DesktopTextField txt_7ZipCommand
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   27
-      Hint            =   "example: ""7z e"""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   174
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   9
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   98
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   544
-   End
-   Begin DesktopTextField txt_RarCommand
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   27
-      Hint            =   "example: ""unrar x"""
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   174
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   136
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   544
-   End
-   Begin DesktopLabel lbl_Warning
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   44
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   True
-      Scope           =   0
-      Selectable      =   False
-      TabIndex        =   11
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Please do not use ""sudo"" unless you know what you're doing!\nThis program should not require elevated privileges! "
-      TextAlignment   =   0
-      TextColor       =   &cFF000000
-      Tooltip         =   ""
-      Top             =   176
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   False
-      Width           =   376
    End
    Begin DesktopLabel lbl_DataFolder
       AllowAutoDeactivate=   True
@@ -497,7 +319,7 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Will load the backup of the plugins.txt file created on program first run."
-      Top             =   194
+      Top             =   112
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -511,9 +333,6 @@ End
 		Sub Opening()
 		  Self.txt_DataFolder.Text= App.skyrimData.NativePath
 		  Self.txt_PluginFile.Text= App.BaseDir.NativePath
-		  Self.txt_RarCommand.Text= app.commandRar
-		  Self.txt_7ZipCommand.Text= app.command7Zip
-		  
 		  
 		End Sub
 	#tag EndEvent
@@ -527,18 +346,11 @@ End
 		  If(Self.txt_PluginFile.Text.Trim<>"" And _
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
-		    App.command7Zip= Self.txt_7ZipCommand.Text
-		    App.commandRar= Self.txt_RarCommand.Text
-		    
 		    App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
 		    App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
 		    
 		    Utils.WriteFile(App.savedSettings,"BaseDir|"+_
 		    App.BaseDir.NativePath, True)
-		    Utils.WriteFile(App.savedSettings,"command7Zip|"+_
-		    App.command7Zip+ EndOfLine, False)
-		    Utils.WriteFile(App.savedSettings,"commandRar|"+_
-		    App.commandRar+ EndOfLine, False)
 		    Utils.WriteFile(App.savedSettings,"skyrimData|"+_
 		    App.skyrimData.NativePath+ EndOfLine, False)
 		    
@@ -554,24 +366,6 @@ End
 	#tag Event
 		Sub Pressed()
 		  SettingsScreen.Close
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events txt_7ZipCommand
-	#tag Event
-		Sub TextChanged()
-		  If(Me.Text.Contains("sudo")) Then
-		    Self.lbl_Warning.Visible= True
-		  End
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events txt_RarCommand
-	#tag Event
-		Sub TextChanged()
-		  If(Me.Text.Contains("sudo")) Then
-		    Self.lbl_Warning.Visible= True
-		  End
 		End Sub
 	#tag EndEvent
 #tag EndEvents

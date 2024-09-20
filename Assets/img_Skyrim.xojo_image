@@ -1,9 +1,9 @@
 #tag MultiImage
 Image img_Skyrim
 	#tag ImageRepresentation
-		SaveInfo = APHRcwECAQAAAABWL2hvbWUvaG9wZWxlc3NkZWNveS9Qcm9qZWN0cy9Yb2pvL0Rlc2t0b3BBcHBzL3NreXJpbUxpbnV4TW9kZGVyL0Fzc2V0cy9za3lyaW1MaW51eC5wbmcDAAAAAAEBBAAAAAABAAAAAAAAAA==
-		FullPath = /home/hopelessdecoy/Projects/Xojo/DesktopApps/skyrimLinuxModder/Assets/skyrimLinux.png
-		PartialPath = ..\..\DesktopApps\skyrimLinuxModder\Assets\skyrimLinux.png
+		SaveInfo = APHRcwECAQAAAABaL2hvbWUvaG9wZWxlc3NkZWNveS9Qcm9qZWN0cy9Yb2pvL0Rlc2t0b3BBcHBzL3NreXJpbUxpbnV4TW9kTWFuYWdlci9Bc3NldHMvc2t5cmltTGludXgucG5nAwAAAAABAQQAAAAAAQAAAAAAAAA=
+		FullPath = /home/hopelessdecoy/Projects/Xojo/DesktopApps/skyrimLinuxModManager/Assets/skyrimLinux.png
+		PartialPath = ..\..\DesktopApps\skyrimLinuxModManager\Assets\skyrimLinux.png
 		#tag ImageSpecification
 			Comment = 
 			Device = 31

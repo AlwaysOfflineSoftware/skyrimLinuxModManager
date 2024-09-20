@@ -1,9 +1,9 @@
 #tag MultiImage
 Image img_XojoLogo
 	#tag ImageRepresentation
-		SaveInfo = APHRcwECAQAAAABdL2hvbWUvaG9wZWxlc3NkZWNveS9Qcm9qZWN0cy9Yb2pvL0Rlc2t0b3BBcHBzL3NreXJpbUxpbnV4TW9kZGVyL0Fzc2V0cy9td3hfbG9nby1sb25nLXRpbnkucG5nAwAAAAABAQQAAAAAAQAAAAAAAAA=
-		FullPath = /home/hopelessdecoy/Projects/Xojo/DesktopApps/skyrimLinuxModder/Assets/mwx_logo-long-tiny.png
-		PartialPath = ..\..\DesktopApps\skyrimLinuxModder\Assets\mwx_logo-long-tiny.png
+		SaveInfo = APHRcwECAQAAAABhL2hvbWUvaG9wZWxlc3NkZWNveS9Qcm9qZWN0cy9Yb2pvL0Rlc2t0b3BBcHBzL3NreXJpbUxpbnV4TW9kTWFuYWdlci9Bc3NldHMvbXd4X2xvZ28tbG9uZy10aW55LnBuZwMAAAAAAQEEAAAAAAEAAAAAAAAA
+		FullPath = /home/hopelessdecoy/Projects/Xojo/DesktopApps/skyrimLinuxModManager/Assets/mwx_logo-long-tiny.png
+		PartialPath = ..\..\DesktopApps\skyrimLinuxModManager\Assets\mwx_logo-long-tiny.png
 		#tag ImageSpecification
 			Comment = 
 			Device = 31
