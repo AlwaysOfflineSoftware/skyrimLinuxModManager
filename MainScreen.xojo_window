@@ -592,7 +592,7 @@ End
 
 	#tag MenuHandler
 		Function HelpNexusPage() As Boolean Handles HelpNexusPage.Action
-		  
+		  System.GotoURL("https://www.nexusmods.com/skyrimspecialedition/mods/128507")
 		  Return True
 		  
 		End Function
