@@ -222,8 +222,8 @@ Protected Module SkyrimModHandler
 		  App.configsFolder= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
 		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/")
 		  
-		  App.command7Zip= """"+SpecialFolder.CurrentWorkingDirectory.NativePath _
-		  + "SkyrimLinuxModder Resources/7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
+		  App.command7Zip= """"+SpecialFolder.Resources.NativePath _
+		  + "7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
 		  App.commandRar= App.command7Zip
 		  
 		  App.savedSettings= app.configsFolder.child("settings.ini")
