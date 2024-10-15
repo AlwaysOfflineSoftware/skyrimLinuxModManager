@@ -10,4 +10,4 @@ A Linux native mod manager for Skyrim
 
 ![App_Screenshot](https://github.com/user-attachments/assets/e87bdf78-4983-4faf-933c-a2bd22142ec4)
 
-Made with <a href="https://www.xojo.com/download/">Xojo</a> (Which is free for Linux!)
+Made with <a href="https://www.xojo.com">Xojo</a> (Which is free for Linux!)
