@@ -1,5 +1,5 @@
 #tag DesktopWindow
-Begin DesktopWindow AboutScreen
+Begin DesktopWindow SkseScreen
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
@@ -8,128 +8,186 @@ Begin DesktopWindow AboutScreen
    HasBackgroundColor=   False
    HasCloseButton  =   True
    HasFullScreenButton=   False
-   HasMaximizeButton=   False
-   HasMinimizeButton=   False
-   Height          =   400
+   HasMaximizeButton=   True
+   HasMinimizeButton=   True
+   Height          =   290
    ImplicitInstance=   True
    MacProcID       =   0
-   MaximumHeight   =   400
-   MaximumWidth    =   600
+   MaximumHeight   =   32000
+   MaximumWidth    =   32000
    MenuBar         =   ""
    MenuBarVisible  =   False
-   MinimumHeight   =   400
-   MinimumWidth    =   600
-   Resizeable      =   False
-   Title           =   "About"
+   MinimumHeight   =   64
+   MinimumWidth    =   64
+   Resizeable      =   True
+   Title           =   "SKSE Manager"
    Type            =   1
    Visible         =   True
-   Width           =   600
-   Begin DesktopSeparator Sep_About
-      Active          =   False
-      AllowAutoDeactivate=   True
-      AllowTabStop    =   True
-      Enabled         =   True
-      Height          =   20
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   0
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      PanelIndex      =   0
-      Scope           =   2
-      TabIndex        =   0
-      TabPanelIndex   =   0
-      Tooltip         =   ""
-      Top             =   171
-      Transparent     =   False
-      Visible         =   True
-      Width           =   600
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
-   End
-   Begin DesktopLabel lbl_programTitle
+   Width           =   774
+   Begin DesktopCheckBox chk_SKSEInstalled
       AllowAutoDeactivate=   True
       Bold            =   False
-      Enabled         =   True
-      FontName        =   "Liberation Sans"
+      Caption         =   ""
+      Enabled         =   False
+      FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   20
+      Height          =   27
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   733
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
+      Scope           =   0
+      TabIndex        =   0
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Value           =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   21
+   End
+   Begin DesktopTextField txt_SKSEVersion
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   False
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   27
+      Hint            =   "SKSE version installed"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   149
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   True
+      Scope           =   0
       TabIndex        =   1
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Skyrim Linux Modder"
-      TextAlignment   =   2
+      Text            =   ""
+      TextAlignment   =   1
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   0
+      Top             =   20
       Transparent     =   False
       Underline       =   False
+      ValidationMask  =   ""
       Visible         =   True
-      Width           =   560
+      Width           =   572
    End
-   Begin DesktopLabel lbl_CompanyTitle
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "Liberation Sans"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   227
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   2
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Always Offline Software"
-      TextAlignment   =   2
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   190
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   147
-   End
-   Begin DesktopButton btn_exit
+   Begin DesktopButton btn_Install
       AllowAutoDeactivate=   True
       Bold            =   False
       Cancel          =   False
-      Caption         =   "Back"
+      Caption         =   "Install SKSE"
       Default         =   False
-      Enabled         =   True
-      FontName        =   "Liberation Sans"
+      Enabled         =   False
+      FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
       Height          =   26
       Index           =   -2147483648
       Italic          =   False
-      Left            =   509
+      Left            =   9
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   True
+      MacButtonStyle  =   0
+      Scope           =   0
+      TabIndex        =   2
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   "Coming Soon!"
+      Top             =   134
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   128
+   End
+   Begin DesktopListBox lsb_Plugins
+      AllowAutoDeactivate=   True
+      AllowAutoHideScrollbars=   True
+      AllowExpandableRows=   False
+      AllowFocusRing  =   True
+      AllowResizableColumns=   False
+      AllowRowDragging=   False
+      AllowRowReordering=   False
+      Bold            =   False
+      ColumnCount     =   1
+      ColumnWidths    =   ""
+      DefaultRowHeight=   -1
+      DropIndicatorVisible=   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      GridLineStyle   =   1
+      HasBorder       =   True
+      HasHeader       =   True
+      HasHorizontalScrollbar=   False
+      HasVerticalScrollbar=   True
+      HeadingIndex    =   -1
+      Height          =   211
+      Index           =   -2147483648
+      InitialValue    =   "SKSE Plugins"
+      Italic          =   False
+      Left            =   149
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      RequiresSelection=   False
+      RowSelectionType=   0
+      Scope           =   0
+      TabIndex        =   3
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   59
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   605
+      _ScrollOffset   =   0
+      _ScrollWidth    =   -1
+   End
+   Begin DesktopButton btn_BrowseSKSE
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Cancel          =   False
+      Caption         =   "Browse Plugins"
+      Default         =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   26
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   9
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -137,222 +195,204 @@ Begin DesktopWindow AboutScreen
       LockTop         =   True
       MacButtonStyle  =   0
       Scope           =   0
-      TabIndex        =   3
+      TabIndex        =   5
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   ""
-      Top             =   366
+      Tooltip         =   "Opens the Skyrim SKSE folder for viewing"
+      Top             =   59
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   80
+      Width           =   128
    End
-   Begin DesktopImageViewer img_XojoLogo
-      Active          =   False
+   Begin DesktopButton btn_Cancel
       AllowAutoDeactivate=   True
-      AllowTabStop    =   True
+      Bold            =   False
+      Cancel          =   True
+      Caption         =   "Cancel"
+      Default         =   False
       Enabled         =   True
-      Height          =   43
-      Image           =   1537605631
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   26
       Index           =   -2147483648
-      InitialParent   =   ""
-      Left            =   250
-      LockBottom      =   False
+      Italic          =   False
+      Left            =   9
+      LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
-      LockTop         =   True
-      PanelIndex      =   0
+      LockTop         =   False
+      MacButtonStyle  =   0
       Scope           =   0
-      TabIndex        =   7
+      TabIndex        =   6
       TabPanelIndex   =   0
+      TabStop         =   True
       Tooltip         =   ""
-      Top             =   116
+      Top             =   244
       Transparent     =   False
+      Underline       =   False
       Visible         =   True
-      Width           =   102
-      _mIndex         =   0
-      _mInitialParent =   ""
-      _mName          =   ""
-      _mPanelIndex    =   0
+      Width           =   128
    End
-   Begin DesktopLabel lbl_ProgramDesc
+   Begin DesktopLabel lbl_skseInstalled
       AllowAutoDeactivate=   True
       Bold            =   False
       Enabled         =   True
-      FontName        =   "Liberation Sans"
+      FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   84
+      Height          =   27
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   39
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Multiline       =   True
-      Scope           =   2
+      Multiline       =   False
+      Scope           =   0
       Selectable      =   False
+      TabIndex        =   7
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "SKSE Installed:"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   20
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   98
+   End
+   Begin DesktopCheckBox chk_SkseDefault
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Default Launcher"
+      Enabled         =   False
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   22
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   9
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Scope           =   0
       TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "The Skyrim Linux Modder is the first Skyrim mod manager made for Linux. Too long has it been that Windows is the premiere modding platform for Skyrim (and many other games) and Always Offline Software is going to change that!"
-      TextAlignment   =   1
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   32
+      Tooltip         =   "This will make SKSE the default launch option, even when hitting ""Play"" in Steam by replacing the original exe."
+      Top             =   171
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
-      Width           =   560
+      VisualState     =   0
+      Width           =   128
    End
-   Begin DesktopLabel lbl_CompanyDesc
+   Begin DesktopButton btn_RemovePlugin
       AllowAutoDeactivate=   True
       Bold            =   False
+      Cancel          =   False
+      Caption         =   "Remove Plugin"
+      Default         =   False
       Enabled         =   True
-      FontName        =   "Liberation Sans"
+      FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   99
+      Height          =   26
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   9
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
       LockRight       =   False
       LockTop         =   True
-      Multiline       =   True
-      Scope           =   2
-      Selectable      =   False
+      MacButtonStyle  =   0
+      Scope           =   0
       TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
-      Text            =   "Always Offline Software is a company that makes simple but effective software you own. No subscriptions, No data collection, and you own your copy. We run on donations and contract work, if you have a problem we can help you solve it or make something for you. Just reach out to our support email!"
-      TextAlignment   =   1
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   222
+      Tooltip         =   "Removes a selected SKSE plugin"
+      Top             =   97
       Transparent     =   False
       Underline       =   False
       Visible         =   True
-      Width           =   560
-   End
-   Begin DesktopLabel lbl_Version
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "Liberation Sans"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   10
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Version: 0.2"
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   366
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   117
-   End
-   Begin DesktopLabel lbl_website
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "Liberation Sans"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   20
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   11
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Our Patreon"
-      TextAlignment   =   0
-      TextColor       =   &c00A0FF00
-      Tooltip         =   ""
-      Top             =   334
-      Transparent     =   False
-      Underline       =   True
-      Visible         =   True
-      Width           =   188
+      Width           =   128
    End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
+	#tag Event
+		Sub Opening()
+		  Var mainSkyrimDir As folderItem= App.skyrimData.parent
+		  
+		  SKSEHandler.LoadPluginList
+		  
+		  For Each item As folderitem In mainSkyrimDir.Children
+		    If(Not item.IsFolder) Then
+		      If(item.Name.Contains("skse") And item.Name.Contains(".dll")) Then
+		        Self.txt_SKSEVersion.Text= item.Name.Replace(".dll","").Replace("_"," ").ReplaceAll("_",".")
+		      End
+		    End
+		  Next
+		  
+		  If(Self.txt_SKSEVersion.Text<>"") Then
+		    Self.chk_SKSEInstalled.Value= True
+		    Self.chk_SKSEInstalled.Tooltip= "A Valid SKSE dll was detected"
+		    Self.btn_Install.Enabled= False
+		    Self.chk_SkseDefault.Enabled= False
+		  Else
+		    Self.chk_SKSEInstalled.Value= False
+		    Self.chk_SKSEInstalled.Tooltip= "No SKSE dll was detected"
+		    Self.btn_Install.Enabled= True
+		    Self.chk_SkseDefault.Enabled= True
+		  End
+		End Sub
+	#tag EndEvent
+
+
 #tag EndWindowCode
 
-#tag Events btn_exit
+#tag Events btn_Install
 	#tag Event
 		Sub Pressed()
-		  AboutScreen.Hide()
+		  SKSEHandler.InstallSKSE(Utils.SelectTargetDialog("home",False), Self.chk_SkseDefault.Value)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events img_XojoLogo
+#tag Events btn_BrowseSKSE
 	#tag Event
-		Function MouseDown(X As Integer, Y As Integer) As Boolean
-		  ShowURL("https://xojo.com/")
-		  return true
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub MouseExit()
-		  Me.MouseCursor = System.Cursors.StandardPointer
+		Sub Pressed()
 		  
-		End Sub
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  me.MouseCursor = System.Cursors.FingerPointer
+		  Call Utils.SelectTargetDialog(_
+		  "~/.local/share/Steam/steamapps/common/Skyrim Special Edition/Data/SKSE/Plugins")
 		End Sub
 	#tag EndEvent
 #tag EndEvents
-#tag Events lbl_website
+#tag Events btn_Cancel
 	#tag Event
-		Function MouseDown(x As Integer, y As Integer) As Boolean
-		  System.GotoURL("https://www.patreon.com/AlwaysOfflineSoftware")
-		  Return True
-		  
-		End Function
-	#tag EndEvent
-	#tag Event
-		Sub MouseEnter()
-		  Me.MouseCursor = System.Cursors.FingerPointer
+		Sub Pressed()
+		  SkseScreen.Close
 		End Sub
 	#tag EndEvent
+#tag EndEvents
+#tag Events btn_RemovePlugin
 	#tag Event
-		Sub MouseExit()
-		  Me.MouseCursor = System.Cursors.StandardPointer
-		  
+		Sub Pressed()
+		  If(Self.lsb_Plugins.SelectedRowIndex<>-1) Then
+		    SKSEHandler.RemovePlugin(Self.lsb_Plugins.SelectedRowText)
+		  end
 		End Sub
 	#tag EndEvent
 #tag EndEvents

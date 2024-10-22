@@ -567,6 +567,14 @@ End
 	#tag EndMenuHandler
 
 	#tag MenuHandler
+		Function FileSKSEManager() As Boolean Handles FileSKSEManager.Action
+		  SkseScreen.Show
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
 		Function HelpAbout() As Boolean Handles HelpAbout.Action
 		  AboutScreen.Show
 		  Return True
@@ -592,7 +600,7 @@ End
 
 	#tag MenuHandler
 		Function HelpNexusPage() As Boolean Handles HelpNexusPage.Action
-		  System.GotoURL("https://www.nexusmods.com/skyrimspecialedition/mods/128507")
+		  
 		  Return True
 		  
 		End Function

@@ -49,6 +49,10 @@ Inherits DesktopApplication
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
+		skseFolder As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
 		skyrimData As folderItem
 	#tag EndProperty
 

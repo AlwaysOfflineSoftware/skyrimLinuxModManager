@@ -219,6 +219,8 @@ Protected Module SkyrimModHandler
 		  App.skyrimData= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
 		  .child("steamapps").child("common").child("Skyrim Special Edition").child("Data")
 		  
+		  App.skseFolder= App.skyrimData.Child("SKSE")
+		  
 		  App.configsFolder= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
 		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/")
 		  

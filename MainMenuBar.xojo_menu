@@ -26,6 +26,22 @@ Begin Menu MainMenuBar
          Visible = True
       End
    End
+   Begin DesktopMenuItem ToolsMenu
+      SpecialMenu = 0
+      Index = -2147483648
+      Text = "Tools"
+      AutoEnabled = True
+      AutoEnable = True
+      Visible = True
+      Begin DesktopMenuItem FileSKSEManager
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "SKSE Manager"
+         AutoEnabled = True
+         AutoEnable = True
+         Visible = True
+      End
+   End
    Begin DesktopMenuItem HelpMenu
       SpecialMenu = 0
       Index = -2147483648

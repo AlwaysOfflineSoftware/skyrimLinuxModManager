@@ -106,6 +106,8 @@ Protected Module Utils
 
 	#tag Method, Flags = &h0
 		Function SelectTargetDialog(startAt as String, isFolder as Boolean = False) As FolderItem
+		  Var userHome As String= SpecialFolder.UserHome.NativePath
+		  
 		  If(isFolder) Then
 		    Var ddlg As New SelectFolderDialog
 		    
@@ -118,7 +120,7 @@ Protected Module Utils
 		    ElseIf(startAt.Lowercase="sys") Then
 		      ddlg.InitialFolder = SpecialFolder.Caches
 		    Else
-		      ddlg.InitialFolder = SpecialFolder.UserHome
+		      ddlg.InitialFolder = New folderItem(startAt.Replace("~/",userHome))
 		    End
 		    
 		    Var result As FolderItem = ddlg.ShowModal
@@ -138,7 +140,7 @@ Protected Module Utils
 		    ElseIf(startAt.Lowercase="sys") Then
 		      fdlg.InitialFolder = SpecialFolder.Caches
 		    Else
-		      fdlg.InitialFolder = SpecialFolder.UserHome
+		      fdlg.InitialFolder = New folderItem(startAt.Replace("~/",userHome))
 		    End
 		    
 		    fdlg.AllowMultipleSelections = False
