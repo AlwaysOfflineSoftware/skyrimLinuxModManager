@@ -101,7 +101,7 @@ Begin DesktopWindow SkseScreen
       Cancel          =   False
       Caption         =   "Install SKSE"
       Default         =   False
-      Enabled         =   False
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
