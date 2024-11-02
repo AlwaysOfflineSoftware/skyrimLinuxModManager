@@ -39,16 +39,12 @@ Protected Module SKSEHandler
 		  If(setAsDefault) Then
 		    If(App.skyrimData.Child("SKSE").Exists) Then
 		      Utils.WriteFile(App.skyrimData.Child("SKSE").Child("SKSE.ini"),"[Loader]" +_
-		      EndOfLine + "RuntimeName=SkyrimSE_SKSE.exe",True)
+		      EndOfLine + "RuntimeName=SkyrimSE.exe",True)
 		    Else
 		      sksePlugins= Utils.CreateFolderStructure(App.skyrimData,"/SKSE/Plugins/")
 		      Utils.WriteFile(App.skyrimData.Child("SKSE").Child("SKSE.ini"),"[Loader]" +_
-		      EndOfLine + "RuntimeName=SkyrimSE_SKSE.exe", True)
+		      EndOfLine + "RuntimeName=SkyrimSE.exe", True)
 		    End
-		    
-		    App.skyrimData.Parent.Child("SkyrimSE.exe").CopyTo(App.skyrimData.Child("SKSE"))
-		    App.skyrimData.Child("SKSE").Child("SkyrimSE.exe").Name= "SkyrimSE_SKSE.exe"
-		    App.skyrimData.Child("SKSE").Child("SkyrimSE_SKSE.exe").MoveTo(App.skyrimData.Parent)
 		    App.skyrimData.Parent.Child("SkyrimSE.exe").Name="SkyrimSE.exe.bak"
 		    App.skyrimData.Parent.Child("skse64_loader.exe").Name="SkyrimSE.exe"
 		  End

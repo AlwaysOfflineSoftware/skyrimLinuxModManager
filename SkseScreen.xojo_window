@@ -272,7 +272,7 @@ Begin DesktopWindow SkseScreen
       AllowAutoDeactivate=   True
       Bold            =   False
       Caption         =   "Default Launcher"
-      Enabled         =   False
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
