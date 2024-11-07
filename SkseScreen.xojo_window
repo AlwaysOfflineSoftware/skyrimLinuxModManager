@@ -119,7 +119,7 @@ Begin DesktopWindow SkseScreen
       TabIndex        =   2
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Coming Soon!"
+      Tooltip         =   "Extracts an SKSE Archive properly into the Skyrim SE Folder"
       Top             =   134
       Transparent     =   False
       Underline       =   False
@@ -358,6 +358,7 @@ End
 		    Self.btn_Install.Enabled= True
 		    Self.chk_SkseDefault.Enabled= True
 		  End
+		  
 		End Sub
 	#tag EndEvent
 

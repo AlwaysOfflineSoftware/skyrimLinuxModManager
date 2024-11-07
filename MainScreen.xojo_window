@@ -350,7 +350,7 @@ Begin DesktopWindow MainScreen
       Cancel          =   False
       Caption         =   "Toggle"
       Default         =   False
-      Enabled         =   False
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -412,7 +412,7 @@ Begin DesktopWindow MainScreen
       Cancel          =   False
       Caption         =   "Up"
       Default         =   False
-      Enabled         =   False
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -474,7 +474,7 @@ Begin DesktopWindow MainScreen
       Cancel          =   False
       Caption         =   "Down"
       Default         =   False
-      Enabled         =   False
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -685,19 +685,6 @@ End
 		  
 		End Sub
 	#tag EndEvent
-	#tag Event
-		Sub SelectionChanged()
-		  If(Me.SelectedRowIndex<>-1) Then
-		    Self.btn_MoveUp.Enabled= True
-		    Self.btn_MoveDown.Enabled= True
-		    Self.btn_Toggle.Enabled= True
-		  Else
-		    Self.btn_MoveUp.Enabled= False
-		    Self.btn_MoveDown.Enabled= False
-		    Self.btn_Toggle.Enabled= False
-		  End
-		End Sub
-	#tag EndEvent
 #tag EndEvents
 #tag Events btn_Apply
 	#tag Event
@@ -773,8 +760,29 @@ End
 #tag Events btn_Toggle
 	#tag Event
 		Sub Pressed()
-		  SharedModTools.ToggleMod
+		  If(Self.lsb_ModOrderList.SelectedRowIndex<>-1) Then
+		    SharedModTools.ToggleMod
+		  end
 		End Sub
+	#tag EndEvent
+	#tag Event
+		Function ConstructContextualMenu(base As DesktopMenuItem, x As Integer, y As Integer) As Boolean
+		  base.AddMenu(New MenuItem("Toggle All OFF"))
+		  base.AddMenu(New MenuItem("Toggle All ON"))
+		  
+		End Function
+	#tag EndEvent
+	#tag Event
+		Function ContextualMenuItemSelected(selectedItem As DesktopMenuItem) As Boolean
+		  Select Case selectedItem.Text
+		  Case "Toggle All OFF"
+		    SharedModTools.ToggleAllMods(False)
+		  Case "Toggle All ON"
+		    SharedModTools.ToggleAllMods(True)
+		  End Select
+		  
+		  Return True
+		End Function
 	#tag EndEvent
 #tag EndEvents
 #tag Events btn_PlaySkyrim
@@ -787,26 +795,28 @@ End
 #tag Events btn_MoveUp
 	#tag Event
 		Sub Pressed()
-		  Var Min As Integer= 0
-		  Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
-		  Var OldRowNum As String= modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)
-		  Var selectedRowNum As Integer=_
-		  modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER).ToInteger
-		  Var selectedRowMinus As Integer=_
-		  selectedRowNum-1
-		  Var selectedRowMoved As String= selectedRowMinus.ToString
-		  
-		  // System.DebugLog(selectedRowMoved)
-		  If(selectedRowNum<>0) Then
-		    modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
-		    selectedRowMoved
+		  If(Self.lsb_ModOrderList.SelectedRowIndex<>-1) Then
+		    Var Min As Integer= 0
+		    Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
+		    Var OldRowNum As String= modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)
+		    Var selectedRowNum As Integer=_
+		    modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER).ToInteger
+		    Var selectedRowMinus As Integer=_
+		    selectedRowNum-1
+		    Var selectedRowMoved As String= selectedRowMinus.ToString
 		    
-		    modListBox.CellTextAt(modListBox.SelectedRowIndex-1,App.COL_ORDER)=_
-		    OldRowNum
+		    // System.DebugLog(selectedRowMoved)
+		    If(selectedRowNum<>0) Then
+		      modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
+		      selectedRowMoved
+		      
+		      modListBox.CellTextAt(modListBox.SelectedRowIndex-1,App.COL_ORDER)=_
+		      OldRowNum
+		    End
+		    
+		    modListBox.SortingColumn=App.COL_ORDER
+		    modListBox.Sort
 		  End
-		  
-		  modListBox.SortingColumn=App.COL_ORDER
-		  modListBox.Sort
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -854,26 +864,28 @@ End
 #tag Events btn_MoveDown
 	#tag Event
 		Sub Pressed()
-		  Var Min As Integer= 0
-		  Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
-		  Var OldRowNum As String= modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)
-		  Var selectedRowNum As Integer=_
-		  modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER).ToInteger
-		  Var selectedRowPlus As Integer=_
-		  selectedRowNum+1
-		  Var selectedRowMoved As String= selectedRowPlus.ToString
-		  
-		  // System.DebugLog(modListBox.RowCount.ToString + "= " + selectedRowNum.ToString)
-		  If(selectedRowNum<>modListBox.RowCount-2) Then
-		    modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
-		    selectedRowMoved
+		  If(Self.lsb_ModOrderList.SelectedRowIndex<>-1) Then
+		    Var Min As Integer= 0
+		    Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
+		    Var OldRowNum As String= modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)
+		    Var selectedRowNum As Integer=_
+		    modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER).ToInteger
+		    Var selectedRowPlus As Integer=_
+		    selectedRowNum+1
+		    Var selectedRowMoved As String= selectedRowPlus.ToString
 		    
-		    modListBox.CellTextAt(modListBox.SelectedRowIndex+1,App.COL_ORDER)=_
-		    OldRowNum
+		    // System.DebugLog(modListBox.RowCount.ToString + "= " + selectedRowNum.ToString)
+		    If(selectedRowNum<>modListBox.RowCount-2) Then
+		      modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
+		      selectedRowMoved
+		      
+		      modListBox.CellTextAt(modListBox.SelectedRowIndex+1,App.COL_ORDER)=_
+		      OldRowNum
+		    End
+		    
+		    modListBox.SortingColumn=App.COL_ORDER
+		    modListBox.Sort
 		  End
-		  
-		  modListBox.SortingColumn=App.COL_ORDER
-		  modListBox.Sort
 		End Sub
 	#tag EndEvent
 #tag EndEvents

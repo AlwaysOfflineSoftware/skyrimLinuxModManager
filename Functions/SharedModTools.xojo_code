@@ -80,6 +80,19 @@ Protected Module SharedModTools
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub ToggleAllMods(activate as boolean)
+		  For row As Integer=0 To MainScreen.lsb_ModOrderList.LastRowIndex
+		    If(activate) Then
+		      MainScreen.lsb_ModOrderList.CellTextAt(row,App.COL_ENABLED)="Y"
+		    Else
+		      MainScreen.lsb_ModOrderList.CellTextAt(row,App.COL_ENABLED)=" "
+		    End
+		  Next
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub ToggleMod()
 		  Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
 		  

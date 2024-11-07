@@ -11,7 +11,7 @@ Protected Module SKSEHandler
 		  Var archiveCommand As String= """"+SpecialFolder.Resources.NativePath _
 		  + "7zzs"" x % -o" + """"+SpecialFolder.CurrentWorkingDirectory.NativePath+""" -y"
 		  
-		  If(skseArchive<> Nil) Then
+		  If(skseArchive<> Nil And skseArchive.Name.Lowercase.Contains("skse")) Then
 		    If(skseArchive.Name.Contains(".zip")) Then
 		      skseArchive.Unzip(App.SkyrimData)
 		    ElseIf(skseArchive.Name.Contains(".7z")) Then
@@ -22,6 +22,9 @@ Protected Module SKSEHandler
 		      Utils.ErrorHandler(3,"Unsupported archive format",_
 		      "Please extract manually and archive as a zip file")
 		    End
+		  Else
+		    Utils.ErrorHandler(3,"Invalid Archive Name",_
+		    skseArchive.Name + " Doesn't seem to be an skse Archive. Please Try again.")
 		  End
 		  
 		  For Each item As folderitem In SpecialFolder.CurrentWorkingDirectory.Children
