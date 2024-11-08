@@ -3,7 +3,7 @@ Begin DesktopWindow MainScreen
    Backdrop        =   0
    BackgroundColor =   &cFFFFFF
    Composite       =   False
-   DefaultLocation =   0
+   DefaultLocation =   3
    FullScreen      =   False
    HasBackgroundColor=   False
    HasCloseButton  =   True
@@ -622,6 +622,8 @@ End
 		  Else
 		    base.AddMenu(New MenuItem("Activate"))
 		  End
+		  base.AddMenu(New MenuItem("Move To Top"))
+		  base.AddMenu(New MenuItem("Move To Bottom"))
 		  
 		End Function
 	#tag EndEvent
@@ -632,6 +634,10 @@ End
 		    SharedModTools.ToggleMod
 		  Case "Disable"
 		    SharedModTools.ToggleMod
+		  Case "Move To Top"
+		    SharedModTools.MoveModTo(Me.SelectedRowIndex,True)
+		  Case "Move To Bottom"
+		    SharedModTools.MoveModTo(Me.SelectedRowIndex,False)
 		  End Select
 		  
 		  Return True
@@ -641,7 +647,7 @@ End
 		Function RowComparison(row1 as Integer, row2 as Integer, column as Integer, ByRef result as Integer) As Boolean
 		  Select Case column
 		    
-		  Case App.COL_ID ' This is our numerical value column. 
+		  Case App.COL_ID 
 		    If Me.CellTextAt(row1, column ).Val < Me.CellTextAt(row2, column).Val Then
 		      result = -1
 		    ElseIf Me.CellTextAt(row1, column).Val > Me.CellTextAt(row2, column).Val Then
@@ -652,7 +658,7 @@ End
 		    Return True
 		    
 		    
-		  Case APP.COL_ORDER ' This is our numerical value column. 
+		  Case APP.COL_ORDER 
 		    If Me.CellTextAt(row1, column ).Val < Me.CellTextAt(row2, column).Val Then
 		      result = -1
 		    ElseIf Me.CellTextAt(row1, column).Val > Me.CellTextAt(row2, column).Val Then
@@ -795,28 +801,7 @@ End
 #tag Events btn_MoveUp
 	#tag Event
 		Sub Pressed()
-		  If(Self.lsb_ModOrderList.SelectedRowIndex<>-1) Then
-		    Var Min As Integer= 0
-		    Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
-		    Var OldRowNum As String= modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)
-		    Var selectedRowNum As Integer=_
-		    modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER).ToInteger
-		    Var selectedRowMinus As Integer=_
-		    selectedRowNum-1
-		    Var selectedRowMoved As String= selectedRowMinus.ToString
-		    
-		    // System.DebugLog(selectedRowMoved)
-		    If(selectedRowNum<>0) Then
-		      modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
-		      selectedRowMoved
-		      
-		      modListBox.CellTextAt(modListBox.SelectedRowIndex-1,App.COL_ORDER)=_
-		      OldRowNum
-		    End
-		    
-		    modListBox.SortingColumn=App.COL_ORDER
-		    modListBox.Sort
-		  End
+		  SharedModTools.MoveModOrder(True)
 		End Sub
 	#tag EndEvent
 #tag EndEvents
@@ -864,28 +849,7 @@ End
 #tag Events btn_MoveDown
 	#tag Event
 		Sub Pressed()
-		  If(Self.lsb_ModOrderList.SelectedRowIndex<>-1) Then
-		    Var Min As Integer= 0
-		    Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
-		    Var OldRowNum As String= modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)
-		    Var selectedRowNum As Integer=_
-		    modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER).ToInteger
-		    Var selectedRowPlus As Integer=_
-		    selectedRowNum+1
-		    Var selectedRowMoved As String= selectedRowPlus.ToString
-		    
-		    // System.DebugLog(modListBox.RowCount.ToString + "= " + selectedRowNum.ToString)
-		    If(selectedRowNum<>modListBox.RowCount-2) Then
-		      modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
-		      selectedRowMoved
-		      
-		      modListBox.CellTextAt(modListBox.SelectedRowIndex+1,App.COL_ORDER)=_
-		      OldRowNum
-		    End
-		    
-		    modListBox.SortingColumn=App.COL_ORDER
-		    modListBox.Sort
-		  End
+		  SharedModTools.MoveModOrder(False)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

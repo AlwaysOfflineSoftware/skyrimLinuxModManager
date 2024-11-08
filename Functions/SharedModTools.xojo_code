@@ -22,6 +22,93 @@ Protected Module SharedModTools
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub MoveModOrder(MoveUP as boolean)
+		  If(MainScreen.lsb_ModOrderList.SelectedRowIndex<>-1) Then
+		    Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
+		    Var OldRowNum As String= modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)
+		    Var selectedRowNum As Integer=_
+		    modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER).ToInteger
+		    Var Min As Integer= 0
+		    
+		    If(MoveUP) Then
+		      Var selectedRowMinus As Integer= selectedRowNum-1
+		      Var selectedRowMoved As String= selectedRowMinus.ToString
+		      
+		      // System.DebugLog(selectedRowMoved)
+		      If(selectedRowNum<>0) Then
+		        modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
+		        selectedRowMoved
+		        
+		        modListBox.CellTextAt(modListBox.SelectedRowIndex-1,App.COL_ORDER)=_
+		        OldRowNum
+		      End
+		    Else
+		      Var selectedRowPlus As Integer= selectedRowNum+1
+		      Var selectedRowMoved As String= selectedRowPlus.ToString
+		      
+		      // System.DebugLog(modListBox.RowCount.ToString + "= " + selectedRowNum.ToString)
+		      If(selectedRowNum<>modListBox.RowCount-2) Then
+		        modListBox.CellTextAt(modListBox.SelectedRowIndex,App.COL_ORDER)=_
+		        selectedRowMoved
+		        
+		        modListBox.CellTextAt(modListBox.SelectedRowIndex+1,App.COL_ORDER)=_
+		        OldRowNum
+		      End
+		    End
+		    
+		    modListBox.SortingColumn=App.COL_ORDER
+		    modListBox.Sort
+		  End
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub MoveModTo(orderToChange as Integer, top as Boolean)
+		  Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
+		  Var modplace As Integer
+		  Var actualOrder As Integer= orderToChange-1
+		  
+		  // System.DebugLog(actualOrder.toString)
+		  
+		  If(top) Then
+		    
+		    For rowNum As Integer= 0 To modListBox.RowCount-1
+		      If(modListBox.CellTextAt(rowNum,App.COL_ID)= "-1") Then
+		        modListBox.CellTextAt(rowNum,App.COL_ORDER)= "-1"
+		      ElseIf(modListBox.CellTextAt(rowNum,App.COL_ORDER)= actualOrder.ToString) Then
+		        // System.DebugLog(modListBox.CellTextAt(rowNum,App.COL_NAME))
+		        modListBox.CellTextAt(rowNum,App.COL_ORDER)= "0"
+		      Else
+		        modplace= modListBox.CellTextAt(rowNum,App.COL_ORDER).ToInteger +1
+		        modListBox.CellTextAt(rowNum,App.COL_ORDER)= modplace.ToString
+		      End
+		    Next
+		    
+		  Else //Move to bottom
+		    Var listBottom As Integer=modListBox.RowCount-2
+		    
+		    For rowNum As Integer= 0 To modListBox.RowCount-1
+		      If(modListBox.CellTextAt(rowNum,App.COL_ID)= "-1") Then
+		        modListBox.CellTextAt(rowNum,App.COL_ORDER)= "-1"
+		      ElseIf(modListBox.CellTextAt(rowNum,App.COL_ORDER)= actualOrder.ToString) Then
+		        // System.DebugLog(modListBox.CellTextAt(rowNum,App.COL_NAME))
+		        modListBox.CellTextAt(rowNum,App.COL_ORDER)= listBottom.ToString
+		      Else
+		        modplace= modListBox.CellTextAt(rowNum,App.COL_ORDER).ToInteger-1
+		        modListBox.CellTextAt(rowNum,App.COL_ORDER)= modplace.ToString
+		      End
+		    Next
+		    
+		  End
+		  
+		  modListBox.SortingColumn=App.COL_ORDER
+		  modListBox.Sort
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub PopulateLoadouts()
 		  MainScreen.pop_SavedLoadouts.RemoveAllRows
 		  MainScreen.pop_SavedLoadouts.AddRow("<new>")
