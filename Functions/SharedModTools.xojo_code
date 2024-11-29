@@ -114,7 +114,7 @@ Protected Module SharedModTools
 		  MainScreen.pop_SavedLoadouts.AddRow("<new>")
 		  
 		  For Each item As FolderItem In App.configsFolder.Children
-		    If(item.DisplayName="settings.ini") Then
+		    If(item.DisplayName="settings.ini" Or item.DisplayName="dependancies.ini") Then
 		      Continue
 		    Else
 		      MainScreen.pop_SavedLoadouts.AddRow(item.Name.Replace(".txt",""))

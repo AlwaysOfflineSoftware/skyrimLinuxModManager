@@ -10,7 +10,7 @@ Begin DesktopWindow OpeningScreen
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   190
+   Height          =   150
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -49,7 +49,7 @@ Begin DesktopWindow OpeningScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   144
+      Top             =   104
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -80,7 +80,7 @@ Begin DesktopWindow OpeningScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   144
+      Top             =   104
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -158,79 +158,6 @@ Begin DesktopWindow OpeningScreen
       ValidationMask  =   ""
       Visible         =   True
       Width           =   428
-   End
-   Begin DesktopLabel lbl_ZippedMods
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   27
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   20
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      Multiline       =   False
-      Scope           =   2
-      Selectable      =   False
-      TabIndex        =   5
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   "Zipped Mods Folder:"
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   98
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   142
-   End
-   Begin DesktopTextField txt_ZippedMods
-      AllowAutoDeactivate=   True
-      AllowFocusRing  =   True
-      AllowSpellChecking=   False
-      AllowTabs       =   False
-      BackgroundColor =   &cFFFFFF
-      Bold            =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Format          =   ""
-      HasBorder       =   True
-      Height          =   27
-      Hint            =   "/home/user/Downloads/SkyrimNexusMods/"
-      Index           =   -2147483648
-      Italic          =   False
-      Left            =   174
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   True
-      LockTop         =   True
-      MaximumCharactersAllowed=   0
-      Password        =   False
-      ReadOnly        =   False
-      Scope           =   0
-      TabIndex        =   6
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Text            =   ""
-      TextAlignment   =   0
-      TextColor       =   &c000000
-      Tooltip         =   ""
-      Top             =   98
-      Transparent     =   False
-      Underline       =   False
-      ValidationMask  =   ""
-      Visible         =   True
-      Width           =   452
    End
    Begin DesktopLabel lbl_DataFolder
       AllowAutoDeactivate=   True
@@ -367,65 +294,13 @@ Begin DesktopWindow OpeningScreen
       Visible         =   True
       Width           =   80
    End
-   Begin DesktopButton btn_BrowseZipModFolder
-      AllowAutoDeactivate=   True
-      Bold            =   False
-      Cancel          =   False
-      Caption         =   "Browse"
-      Default         =   False
-      Enabled         =   True
-      FontName        =   "System"
-      FontSize        =   0.0
-      FontUnit        =   0
-      Height          =   28
-      Index           =   -2147483648
-      InitialParent   =   ""
-      Italic          =   False
-      Left            =   638
-      LockBottom      =   False
-      LockedInPosition=   False
-      LockLeft        =   True
-      LockRight       =   False
-      LockTop         =   True
-      MacButtonStyle  =   0
-      Scope           =   2
-      TabIndex        =   16
-      TabPanelIndex   =   0
-      TabStop         =   True
-      Tooltip         =   ""
-      Top             =   97
-      Transparent     =   False
-      Underline       =   False
-      Visible         =   True
-      Width           =   80
-   End
 End
 #tag EndDesktopWindow
 
 #tag WindowCode
 	#tag Event
 		Sub Opening()
-		  If(App.BaseDir <> Nil And App.skyrimData<> Nil) Then
-		    App.manualModsFile= App.BaseDir.child("Plugins.txt")
-		    
-		    If(App.manualModsFile=Nil) Then
-		      Utils.WriteFile(App.manualModsFile,_
-		      "# This file is used by Skyrim to keep track of your downloaded content.",False)
-		      Utils.WriteFile(App.manualModsFile,_
-		      "# Please do not modify this file." + EndOfLine,False)
-		    End
-		    
-		    SharedModTools.BackupOriginal
-		    
-		    
-		    
-		    MainScreen.Show
-		    OpeningScreen.Close
-		  Else
-		    App.setupNotAutomatic= True
-		    Utils.ErrorHandler(1,"Steam Directory was not detected",_
-		    "Please point to all the relevant directories")
-		  End
+		  SkyrimModHandler.Startup
 		  
 		End Sub
 	#tag EndEvent
@@ -437,7 +312,6 @@ End
 	#tag Event
 		Sub Pressed()
 		  If(Self.txt_PluginFile.Text.Trim<>"" And _
-		    Self.txt_ZippedMods.Text.Trim<>"" And _
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
 		    App.BaseDir= FolderItem(Self.txt_PluginFile)
@@ -490,19 +364,6 @@ End
 		  If(folderPath<>Nil) Then
 		    Self.txt_PluginFile.Text= folderPath.NativePath
 		  End
-		  
-		End Sub
-	#tag EndEvent
-#tag EndEvents
-#tag Events btn_BrowseZipModFolder
-	#tag Event
-		Sub Pressed()
-		  Var folderPath As folderItem= Utils.SelectTargetDialog("home",True)
-		  
-		  If(folderPath<>Nil) Then
-		    Self.txt_ZippedMods.Text= folderPath.NativePath
-		  End
-		  
 		  
 		End Sub
 	#tag EndEvent

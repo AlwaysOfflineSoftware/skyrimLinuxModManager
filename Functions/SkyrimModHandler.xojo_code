@@ -56,6 +56,36 @@ Protected Module SkyrimModHandler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub DependAdd()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub DependCheck()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub DependLoad()
+		  // ChildID=ParentModID,ParentModID,ParentModID
+		  
+		  Var dependsContent As String= Utils.ReadFile(App.dependsFile)
+		  
+		  
+		  
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub DependRemove()
+		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function InstallMod(modToInstall as folderitem, batchmode as boolean = False, modType as integer = 0) As Boolean
 		  Var itemArr() As String= modToInstall.Name.Split(".")
 		  Var last As Integer= itemArr.LastIndex
@@ -108,19 +138,6 @@ Protected Module SkyrimModHandler
 		    Utils.ErrorHandler(3,"Something went wrong!","The")
 		  End
 		  
-		End Sub
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub populateLoadouts()
-		  For Each item As FolderItem In App.configsFolder.Children
-		    If(item.DisplayName="settings.ini") Then
-		      Continue
-		    Else
-		      MainScreen.pop_SavedLoadouts.AddRow(item.Name.Replace(".txt",""))
-		      
-		    End
-		  Next
 		End Sub
 	#tag EndMethod
 
@@ -181,7 +198,11 @@ Protected Module SkyrimModHandler
 		  
 		  If(newNames.count>0) Then
 		    For v As Integer=0 To newNames.count-1
-		      MainScreen.lsb_ModOrderList.AddRow(" ","??",_
+		      tempName= newNames(v).Trim.Replace("*","").Replace(".esp","")
+		      modID= tempName.Left(2).Lowercase + tempName.Right(2).Lowercase +_
+		      tempName.Length.ToString
+		      
+		      MainScreen.lsb_ModOrderList.AddRow(" ",modID,_
 		      newNames(v).Trim,loadedOrder.ToString)
 		      loadedOrder= loadedOrder+1
 		    Next
@@ -221,16 +242,11 @@ Protected Module SkyrimModHandler
 		  App.skyrimData= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
 		  .child("steamapps").child("common").child("Skyrim Special Edition").child("Data")
 		  
-		  App.skseFolder= App.skyrimData.Child("SKSE")
-		  
 		  App.configsFolder= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
 		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/")
 		  
-		  App.command7Zip= """"+SpecialFolder.Resources.NativePath _
-		  + "7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
-		  App.commandRar= App.command7Zip
-		  
-		  App.savedSettings= app.configsFolder.child("settings.ini")
+		  App.savedSettings= App.configsFolder.child("settings.ini")
+		  App.dependsFile= App.configsFolder.child("dependancies.ini")
 		  
 		  If(Not App.savedSettings.Exists) Then
 		    Utils.WriteFile(App.savedSettings,"", True)
@@ -243,8 +259,34 @@ Protected Module SkyrimModHandler
 		    End
 		  End
 		  
+		  If(Not App.dependsFile.Exists) Then
+		    Utils.WriteFile(App.dependsFile,"", True)
+		  End
+		  
 		  App.modIDMap= New Dictionary
 		  
+		  If(App.BaseDir<> Nil And App.skyrimData<> Nil) Then
+		    App.skseFolder= App.skyrimData.Child("SKSE")
+		    App.command7Zip= """"+SpecialFolder.Resources.NativePath _
+		    + "7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
+		    App.commandRar= App.command7Zip
+		    App.manualModsFile= App.BaseDir.child("Plugins.txt")
+		    
+		    If(App.manualModsFile=Nil) Then
+		      Utils.WriteFile(App.manualModsFile,_
+		      "# This file is used by Skyrim to keep track of your downloaded content.",False)
+		      Utils.WriteFile(App.manualModsFile,_
+		      "# Please do not modify this file." + EndOfLine,False)
+		    End
+		    
+		    SharedModTools.BackupOriginal
+		    MainScreen.Show
+		    OpeningScreen.Close
+		  Else
+		    App.setupNotAutomatic= True
+		    Utils.ErrorHandler(1,"Steam Directory was not detected",_
+		    "Please point to all the relevant directories")
+		  End
 		  
 		End Sub
 	#tag EndMethod

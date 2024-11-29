@@ -1,13 +1,6 @@
 #tag Class
 Protected Class App
 Inherits DesktopApplication
-	#tag Event
-		Sub Opening()
-		  SkyrimModHandler.Startup
-		End Sub
-	#tag EndEvent
-
-
 	#tag Property, Flags = &h0
 		BaseDir As folderItem
 	#tag EndProperty
@@ -22,6 +15,14 @@ Inherits DesktopApplication
 
 	#tag Property, Flags = &h0
 		configsFolder As Folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		dependsFile As FolderItem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		dependsMap As Dictionary
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -56,6 +57,9 @@ Inherits DesktopApplication
 		skyrimData As folderItem
 	#tag EndProperty
 
+
+	#tag Constant, Name = COL_DEPENDS, Type = Double, Dynamic = False, Default = \"4", Scope = Public
+	#tag EndConstant
 
 	#tag Constant, Name = COL_ENABLED, Type = Double, Dynamic = False, Default = \"0", Scope = Public
 	#tag EndConstant

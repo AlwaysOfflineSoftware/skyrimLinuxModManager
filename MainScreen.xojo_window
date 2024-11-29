@@ -33,7 +33,7 @@ Begin DesktopWindow MainScreen
       AllowRowDragging=   True
       AllowRowReordering=   True
       Bold            =   False
-      ColumnCount     =   4
+      ColumnCount     =   5
       ColumnWidths    =   ""
       DefaultRowHeight=   -1
       DropIndicatorVisible=   False
@@ -49,7 +49,7 @@ Begin DesktopWindow MainScreen
       HeadingIndex    =   -1
       Height          =   326
       Index           =   -2147483648
-      InitialValue    =   "Enabled	ID	Mod Name	Load Order"
+      InitialValue    =   "Enabled	ID	Mod Name	Load Order	Depends On"
       Italic          =   False
       Left            =   125
       LockBottom      =   True
@@ -537,8 +537,9 @@ End
 		  
 		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_ENABLED).WidthActual=(lsbWidth*0.10)
 		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_ID).WidthActual=(lsbWidth*0.10)
-		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_NAME).WidthActual=(lsbWidth*0.65)
+		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_NAME).WidthActual=(lsbWidth*0.45)
 		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_ORDER).WidthActual=(lsbWidth*0.15)
+		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_DEPENDS).WidthActual=(lsbWidth*0.15)
 		  
 		  
 		  Utils.WriteFile(App.savedSettings,"BaseDir|"+_
