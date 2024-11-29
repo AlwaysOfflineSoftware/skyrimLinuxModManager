@@ -245,13 +245,18 @@ Protected Module SkyrimModHandler
 		  // ~/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local
 		  // /Skyrim Special Edition
 		  
-		  App.BaseDir= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
-		  .child("steamapps").child("compatdata").child("489830").child("pfx").child("drive_c")_
-		  .child("users").child("steamuser").child("AppData").child("Local").child("Skyrim Special Edition")
-		  
-		  // ~/.local/share/Steam/steamapps/common/Skyrim Special Edition/Data
-		  App.skyrimData= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
-		  .child("steamapps").child("common").child("Skyrim Special Edition").child("Data")
+		  If(SpecialFolder.UserHome.child(".local").child("share").child("Steam").Exists) Then
+		    App.BaseDir= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
+		    .child("steamapps").child("compatdata").child("489830").child("pfx").child("drive_c")_
+		    .child("users").child("steamuser").child("AppData").child("Local").child("Skyrim Special Edition")
+		    
+		    // ~/.local/share/Steam/steamapps/common/Skyrim Special Edition/Data
+		    App.skyrimData= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
+		    .child("steamapps").child("common").child("Skyrim Special Edition").child("Data")
+		  Else
+		    App.skyrimData= Nil
+		    App.skyrimData= Nil
+		  End
 		  
 		  App.configsFolder= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
 		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/")
