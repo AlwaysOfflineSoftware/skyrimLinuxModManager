@@ -129,15 +129,26 @@ Protected Module SkyrimModHandler
 		          If(splitLine(0)="BaseDir") Then
 		            App.BaseDir= New folderItem(splitLine(1))
 		          ElseIf(splitLine(0)="skyrimData") Then
-		            App.skyrimData= New folderItem(splitLine(1))
+		            Try
+		              App.skyrimData= New folderItem(splitLine(1))
+		            Catch err As UnsupportedFormatException
+		              Utils.ErrorHandler(3,"Stale Settings detected!","settings file will be reset")
+		              App.savedSettings.Remove
+		            End
 		          End
-		        end
+		        End
 		      Next
 		    End
 		  Else
-		    Utils.ErrorHandler(3,"Something went wrong!","The")
+		    Utils.ErrorHandler(3,"Something went wrong!","settings file will be reset")
+		    App.savedSettings.Remove
 		  End
 		  
+		  
+		  Exception err As RuntimeException
+		    Utils.ErrorHandler(3,"Something went wrong!","settings file will be reset")
+		    App.savedSettings.Remove
+		    Return
 		End Sub
 	#tag EndMethod
 
