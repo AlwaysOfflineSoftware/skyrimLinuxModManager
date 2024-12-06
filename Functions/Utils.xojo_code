@@ -15,8 +15,7 @@ Protected Module Utils
 		  
 		  // split on remaining /
 		  splitDirString= path.Split("/")
-		  Var i As Integer
-		  For i= 0 To splitDirString.ubound
+		  For i As Integer= 0 To splitDirString.LastIndex
 		    root= root.child(splitDirString(i))
 		    If(Not root.exists) Then 
 		      root.CreateAsFolder()
@@ -28,7 +27,7 @@ Protected Module Utils
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub ErrorHandler(typeCode as integer, message as String, explain as String)
+		Sub GeneratePopup(typeCode as integer, message as String, explain as String)
 		  Var diag As New MessageDialog                  // declare the MessageDialog object
 		  Var clickItem As MessageDialogButton                // for handling the result
 		  
@@ -54,6 +53,32 @@ Protected Module Utils
 		    clickItem.Cancel= true
 		  End Select
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function LoadPicture(file As folderitem, newWidth As Integer = 0, newHeight As Integer = 0) As Picture
+		  Var original As Picture= Picture.Open(file)
+		  
+		  Dim newPict As New Picture(newWidth, newHeight, original.Depth )
+		  newPict.Graphics.DrawPicture(_
+		   original, 0, 0, newPict.Width, newPict.Height, 0, 0, original.Width, original.Height )
+		  
+		  return newPict
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function LoadPicture(pict As Picture, newWidth As Integer = 0, newHeight As Integer = 0) As Picture
+		  Var original As Picture= pict
+		  
+		  Dim newPict As New Picture(newWidth, newHeight, original.Depth )
+		  newPict.Graphics.DrawPicture(_
+		   original, 0, 0, newPict.Width, newPict.Height, 0, 0, original.Width, original.Height )
+		  
+		  Return newPict
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -106,8 +131,6 @@ Protected Module Utils
 
 	#tag Method, Flags = &h0
 		Function SelectTargetDialog(startAt as String, isFolder as Boolean = False) As FolderItem
-		  Var userHome As String= SpecialFolder.UserHome.NativePath
-		  
 		  If(isFolder) Then
 		    Var ddlg As New SelectFolderDialog
 		    
@@ -120,7 +143,7 @@ Protected Module Utils
 		    ElseIf(startAt.Lowercase="sys") Then
 		      ddlg.InitialFolder = SpecialFolder.Caches
 		    Else
-		      ddlg.InitialFolder = New folderItem(startAt.Replace("~/",userHome))
+		      ddlg.InitialFolder = SpecialFolder.UserHome
 		    End
 		    
 		    Var result As FolderItem = ddlg.ShowModal
@@ -140,7 +163,7 @@ Protected Module Utils
 		    ElseIf(startAt.Lowercase="sys") Then
 		      fdlg.InitialFolder = SpecialFolder.Caches
 		    Else
-		      fdlg.InitialFolder = New folderItem(startAt.Replace("~/",userHome))
+		      fdlg.InitialFolder = SpecialFolder.UserHome
 		    End
 		    
 		    fdlg.AllowMultipleSelections = False
@@ -184,7 +207,7 @@ Protected Module Utils
 		    End
 		    
 		    If(cmd.ExitCode <> 0) Then
-		      ErrorHandler(3,"Shell Command Failed","The exit code is: " + cmd.ExitCode.ToString)
+		      GeneratePopup(3,"Shell Command Failed","The exit code is: " + cmd.ExitCode.ToString)
 		    End If
 		    
 		  Else
@@ -196,11 +219,75 @@ Protected Module Utils
 		    End
 		    
 		    If(cmd.ExitCode <> 0) Then
-		      ErrorHandler(3,"Shell Command Failed","The exit code is: " + cmd.ExitCode.ToString)
+		      GeneratePopup(3,"Shell Command Failed","The exit code is: " + cmd.ExitCode.ToString)
 		    End If
 		  End
 		  
 		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ShellCommand(command as String, sudo as Boolean = False, asynchExec as Boolean = False) As String
+		  Var cmd As New shell
+		  
+		  If(asynchExec) Then
+		    cmd.ExecuteMode= Shell.ExecuteModes.Asynchronous
+		    
+		    If(sudo) Then
+		      cmd.Execute("pkexec " + command)
+		      Return cmd.Result
+		    Else
+		      cmd.Execute(command)
+		      Return cmd.Result
+		    End
+		    
+		    If(cmd.ExitCode <> 0) Then
+		      GeneratePopup(3,"Shell Command Failed","The exit code is: " + cmd.ExitCode.ToString)
+		    End If
+		    
+		  Else
+		    // Default Synchronous
+		    If(sudo) Then
+		      cmd.Execute("pkexec " + command)
+		      Return cmd.Result
+		    Else
+		      cmd.Execute(command)
+		      Return cmd.Result
+		    End
+		    
+		    If(cmd.ExitCode <> 0) Then
+		      GeneratePopup(3,"Shell Command Failed","The exit code is: " + cmd.ExitCode.ToString)
+		    End If
+		  End
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function ValidatePath(dirString as String) As Boolean
+		  Var userSplit() As String= SpecialFolder.UserHome.NativePath.Split("/")
+		  Var username As String= userSplit(2)
+		  Var splitDirString() As String= dirString.Split("/")
+		  Var buildingPath As New FolderItem("/")
+		  Var pathStillValid As Boolean= True
+		  
+		  // System.DebugLog(buildingPath.child("opt").NativePath)
+		  
+		  If(dirString= "/" Or dirString+"/" = SpecialFolder.UserHome.NativePath) Then
+		    Return True
+		    
+		  Else
+		    For i As Integer= 0 To splitDirString.Count-1
+		      buildingPath= buildingPath.child(splitDirString(i))
+		      If(Not buildingPath.exists) Then 
+		        Return False
+		      End
+		    Next
+		  End
+		  
+		  Return True
+		  
+		End Function
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -238,9 +325,8 @@ Protected Module Utils
 		      End If
 		    End
 		  Catch e As IOException
-		    ErrorHandler(2,"IO Issue writing file", "File could not be written to: ' + folder.URLPath + '")
+		    GeneratePopup(2,"IO Issue writing file", "File could not be written to: ' + folder.URLPath + '")
 		  End Try
-		  
 		  
 		  
 		  
@@ -249,8 +335,8 @@ Protected Module Utils
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
-		Sub WriteFile(path as String, data as string, overwrite as boolean)
-		  Var fullFilePath As FolderItem= new FolderItem(path)
+		Sub WriteFile(path as String, data as string, overwrite as boolean, permissions as String = "nil")
+		  Var fullFilePath As FolderItem= New FolderItem(path)
 		  Var output As TextOutputStream
 		  
 		  Try
@@ -273,9 +359,8 @@ Protected Module Utils
 		      End If
 		    End
 		  Catch e As IOException
-		    ErrorHandler(2,"IO Issue writing file", "File could not be written to: ' + folder.URLPath + '")
+		    GeneratePopup(2,"IO Issue writing file", "File could not be written to: ' + folder.URLPath + '")
 		  End Try
-		  
 		  
 		  
 		  

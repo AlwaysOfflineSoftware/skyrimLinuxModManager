@@ -332,7 +332,7 @@ End
 		      OpeningScreen.close
 		    End
 		  Else
-		    utils.ErrorHandler(1,"Empty or Invalid field","Please fill in all fields with valid values.")
+		    utils.GeneratePopup(1,"Empty or Invalid field","Please fill in all fields with valid values.")
 		  End
 		  
 		End Sub

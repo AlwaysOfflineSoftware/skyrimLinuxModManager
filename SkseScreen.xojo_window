@@ -335,6 +335,10 @@ End
 #tag WindowCode
 	#tag Event
 		Sub Opening()
+		  If(Utils.ValidatePath(App.skyrimData.Child("SKSE").NativePath)) Then
+		    App.skseFolder= App.skyrimData.Child("SKSE")
+		  End
+		  
 		  Var mainSkyrimDir As folderItem= App.skyrimData.parent
 		  
 		  SKSEHandler.LoadPluginList
@@ -358,7 +362,6 @@ End
 		    Self.btn_Install.Enabled= True
 		    Self.chk_SkseDefault.Enabled= True
 		  End
-		  
 		End Sub
 	#tag EndEvent
 

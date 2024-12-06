@@ -49,7 +49,7 @@ Protected Module SkyrimModHandler
 		    
 		  Next
 		  
-		  Utils.ErrorHandler(1,"Batch install completed!",_
+		  Utils.GeneratePopup(1,"Batch install completed!",_
 		  "Mods probably installed: " + installCount.ToString)
 		  
 		End Sub
@@ -105,7 +105,7 @@ Protected Module SkyrimModHandler
 		  Else
 		    
 		    If(Not batchmode) Then
-		      Utils.ErrorHandler(3,"Unsupported archive format",_
+		      Utils.GeneratePopup(3,"Unsupported archive format",_
 		      "Please extract manually and archive as a zip file")
 		    End
 		    
@@ -132,7 +132,7 @@ Protected Module SkyrimModHandler
 		            Try
 		              App.skyrimData= New folderItem(splitLine(1))
 		            Catch err As UnsupportedFormatException
-		              Utils.ErrorHandler(3,"Stale Settings detected!","settings file will be reset")
+		              Utils.GeneratePopup(3,"Stale Settings detected!","settings file will be reset")
 		              App.savedSettings.Remove
 		            End
 		          End
@@ -140,13 +140,13 @@ Protected Module SkyrimModHandler
 		      Next
 		    End
 		  Else
-		    Utils.ErrorHandler(3,"Something went wrong!","settings file will be reset")
+		    Utils.GeneratePopup(3,"Something went wrong!","settings file will be reset")
 		    App.savedSettings.Remove
 		  End
 		  
 		  
 		  Exception err As RuntimeException
-		    Utils.ErrorHandler(3,"Something went wrong!","settings file will be reset")
+		    Utils.GeneratePopup(3,"Something went wrong!","settings file will be reset")
 		    App.savedSettings.Remove
 		    Return
 		End Sub
@@ -245,7 +245,11 @@ Protected Module SkyrimModHandler
 		  // ~/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local
 		  // /Skyrim Special Edition
 		  
-		  If(SpecialFolder.UserHome.child(".local").child("share").child("Steam").Exists) Then
+		  If( Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
+		    ".local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition") And _
+		    Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
+		    ".local/share/Steam/steamapps/common/Skyrim Special Edition/Data")) Then
+		    
 		    App.BaseDir= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
 		    .child("steamapps").child("compatdata").child("489830").child("pfx").child("drive_c")_
 		    .child("users").child("steamuser").child("AppData").child("Local").child("Skyrim Special Edition")
@@ -273,16 +277,13 @@ Protected Module SkyrimModHandler
 		    If(rawSettings.Trim<> "") Then
 		      SkyrimModHandler.LoadSettings(rawSettings)
 		    End
-		  End
-		  
-		  If(Not App.dependsFile.Exists) Then
+		  Else
 		    Utils.WriteFile(App.dependsFile,"", True)
 		  End
 		  
 		  App.modIDMap= New Dictionary
 		  
 		  If(App.BaseDir<> Nil And App.skyrimData<> Nil) Then
-		    App.skseFolder= App.skyrimData.Child("SKSE")
 		    App.command7Zip= """"+SpecialFolder.Resources.NativePath _
 		    + "7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
 		    App.commandRar= App.command7Zip
@@ -300,10 +301,14 @@ Protected Module SkyrimModHandler
 		    OpeningScreen.Close
 		  Else
 		    App.setupNotAutomatic= True
-		    Utils.ErrorHandler(1,"Steam Directory was not detected",_
+		    Utils.GeneratePopup(1,"Steam Directory was not detected",_
 		    "Please point to all the relevant directories")
 		  End
 		  
+		  Exception err As RuntimeException
+		    Utils.GeneratePopup(3,"Something went wrong!",err.message + " (Probably the dev's fault)")
+		    Return
+		    
 		End Sub
 	#tag EndMethod
 

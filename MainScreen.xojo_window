@@ -816,9 +816,9 @@ End
 		    Var installed As Boolean= SkyrimModHandler.InstallMod(selectedZipMod)
 		    
 		    If(installed) Then
-		      Utils.ErrorHandler(1,selectedZipMod.Name + " was Installed!","(Probably)")
+		      Utils.GeneratePopup(1,selectedZipMod.Name + " was Installed!","(Probably)")
 		    Else
-		      Utils.ErrorHandler(3,selectedZipMod.Name + " Failed!",_
+		      Utils.GeneratePopup(3,selectedZipMod.Name + " Failed!",_
 		      "Please check the file is an actual zip and ensure it is in a not privileged place!")
 		    End
 		  End

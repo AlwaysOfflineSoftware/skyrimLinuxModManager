@@ -19,11 +19,11 @@ Protected Module SKSEHandler
 		    ElseIf(skseArchive.Name.Contains(".rar")) Then
 		      Utils.ShellCommand(archiveCommand.Replace("%",""""+skseArchive.NativePath+""""), False, False)
 		    Else
-		      Utils.ErrorHandler(3,"Unsupported archive format",_
+		      Utils.GeneratePopup(3,"Unsupported archive format",_
 		      "Please extract manually and archive as a zip file")
 		    End
 		  Else
-		    Utils.ErrorHandler(3,"Invalid Archive Name",_
+		    Utils.GeneratePopup(3,"Invalid Archive Name",_
 		    skseArchive.Name + " Doesn't seem to be an skse Archive. Please Try again.")
 		  End
 		  
@@ -58,15 +58,15 @@ Protected Module SKSEHandler
 
 	#tag Method, Flags = &h0
 		Sub LoadPluginList()
-		  Var pluginNames() As String= SKSEHandler.ScanPlugins
-		  
-		  ClearPluginList
-		  
-		  For Each plugin As String In pluginNames
-		    SkseScreen.lsb_Plugins.AddRow(plugin.Replace(".dll","").Replace(".bin",""))
-		  Next
-		  
-		  
+		  If(App.skseFolder<> Nil) Then
+		    Var pluginNames() As String= SKSEHandler.ScanPlugins
+		    
+		    ClearPluginList
+		    
+		    For Each plugin As String In pluginNames
+		      SkseScreen.lsb_Plugins.AddRow(plugin.Replace(".dll","").Replace(".bin",""))
+		    Next
+		  end
 		End Sub
 	#tag EndMethod
 
