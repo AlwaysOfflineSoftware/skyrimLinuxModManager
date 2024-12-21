@@ -33,12 +33,20 @@ Begin Menu MainMenuBar
       AutoEnabled = True
       AutoEnable = True
       Visible = True
-      Begin DesktopMenuItem FileSKSEManager
+      Begin DesktopMenuItem ToolSKSEManager
          SpecialMenu = 0
          Index = -2147483648
          Text = "SKSE Manager"
          AutoEnabled = True
          AutoEnable = True
+         Visible = True
+      End
+      Begin DesktopMenuItem ToolModderPlugins
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Modder Plugins"
+         AutoEnabled = False
+         AutoEnable = False
          Visible = True
       End
    End

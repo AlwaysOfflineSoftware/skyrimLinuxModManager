@@ -99,8 +99,8 @@ Protected Module SkyrimModHandler
 		    Utils.ShellCommand(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""), False, False)
 		    Return True
 		  ElseIf(itemArr(last)="rar") Then
-		    System.DebugLog(App.commandRar.Replace("%",""""+modToInstall.NativePath+""""))
-		    Utils.ShellCommand(App.commandRar.Replace("%",""""+modToInstall.NativePath+""""), False, False)
+		    System.DebugLog(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""))
+		    Utils.ShellCommand(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""), False, False)
 		    Return True
 		  Else
 		    
@@ -113,43 +113,6 @@ Protected Module SkyrimModHandler
 		  End
 		  
 		End Function
-	#tag EndMethod
-
-	#tag Method, Flags = &h0
-		Sub LoadSettings(rawSettings As String)
-		  
-		  If(App.savedSettings<>Nil) Then
-		    Var settingsContent() As String= rawSettings.Split(EndOfLine)
-		    Var splitLine() As String
-		    If(settingsContent.Count>0) Then
-		      For Each line As String In settingsContent
-		        If(line.Trim<> "") Then
-		          splitLine= line.Split("|")
-		          
-		          If(splitLine(0)="BaseDir") Then
-		            App.BaseDir= New folderItem(splitLine(1))
-		          ElseIf(splitLine(0)="skyrimData") Then
-		            Try
-		              App.skyrimData= New folderItem(splitLine(1))
-		            Catch err As UnsupportedFormatException
-		              Utils.GeneratePopup(3,"Stale Settings detected!","settings file will be reset")
-		              App.savedSettings.Remove
-		            End
-		          End
-		        End
-		      Next
-		    End
-		  Else
-		    Utils.GeneratePopup(3,"Something went wrong!","settings file will be reset")
-		    App.savedSettings.Remove
-		  End
-		  
-		  
-		  Exception err As RuntimeException
-		    Utils.GeneratePopup(3,"Something went wrong!","settings file will be reset")
-		    App.savedSettings.Remove
-		    Return
-		End Sub
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
@@ -242,51 +205,45 @@ Protected Module SkyrimModHandler
 
 	#tag Method, Flags = &h0
 		Sub Startup()
-		  // ~/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local
-		  // /Skyrim Special Edition
-		  
-		  If( Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
-		    ".local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition") And _
-		    Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
-		    ".local/share/Steam/steamapps/common/Skyrim Special Edition/Data")) Then
-		    
-		    App.BaseDir= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
-		    .child("steamapps").child("compatdata").child("489830").child("pfx").child("drive_c")_
-		    .child("users").child("steamuser").child("AppData").child("Local").child("Skyrim Special Edition")
-		    
-		    // ~/.local/share/Steam/steamapps/common/Skyrim Special Edition/Data
-		    App.skyrimData= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
-		    .child("steamapps").child("common").child("Skyrim Special Edition").child("Data")
-		  Else
-		    App.skyrimData= Nil
-		    App.skyrimData= Nil
-		  End
+		  // ~/.local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition
 		  
 		  App.configsFolder= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
 		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/")
-		  
 		  App.savedSettings= App.configsFolder.child("settings.ini")
 		  App.dependsFile= App.configsFolder.child("dependancies.ini")
-		  
-		  If(Not App.savedSettings.Exists) Then
-		    Utils.WriteFile(App.savedSettings,"", True)
-		  End
+		  App.modIDMap= New Dictionary
 		  
 		  If(App.savedSettings.Exists) Then
 		    Var rawSettings As String= Utils.ReadFile(App.savedSettings)
 		    If(rawSettings.Trim<> "") Then
-		      SkyrimModHandler.LoadSettings(rawSettings)
+		      SharedModTools.LoadSettings(rawSettings)
 		    End
 		  Else
-		    Utils.WriteFile(App.dependsFile,"", True)
+		    Utils.WriteFile(App.savedSettings,"", True)
+		    
+		    If( Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
+		      ".local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition") And _
+		      Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
+		      ".local/share/Steam/steamapps/common/Skyrim Special Edition/Data")) Then
+		      
+		      App.BaseDir= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
+		      .child("steamapps").child("compatdata").child("489830").child("pfx").child("drive_c")_
+		      .child("users").child("steamuser").child("AppData").child("Local").child("Skyrim Special Edition")
+		      
+		      // ~/.local/share/Steam/steamapps/common/Skyrim Special Edition/Data
+		      App.skyrimData= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
+		      .child("steamapps").child("common").child("Skyrim Special Edition").child("Data")
+		    Else
+		      App.skyrimData= Nil
+		      App.skyrimData= Nil
+		      App.launchCommand= ""
+		    End
 		  End
-		  
-		  App.modIDMap= New Dictionary
 		  
 		  If(App.BaseDir<> Nil And App.skyrimData<> Nil) Then
 		    App.command7Zip= """"+SpecialFolder.Resources.NativePath _
 		    + "7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
-		    App.commandRar= App.command7Zip
+		    
 		    App.manualModsFile= App.BaseDir.child("Plugins.txt")
 		    
 		    If(App.manualModsFile=Nil) Then
@@ -297,6 +254,7 @@ Protected Module SkyrimModHandler
 		    End
 		    
 		    SharedModTools.BackupOriginal
+		    SharedModTools.SaveSettings
 		    MainScreen.Show
 		    OpeningScreen.Close
 		  Else
@@ -304,6 +262,7 @@ Protected Module SkyrimModHandler
 		    Utils.GeneratePopup(1,"Steam Directory was not detected",_
 		    "Please point to all the relevant directories")
 		  End
+		  
 		  
 		  Exception err As RuntimeException
 		    Utils.GeneratePopup(3,"Something went wrong!",err.message + " (Probably the dev's fault)")

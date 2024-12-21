@@ -381,7 +381,7 @@ Begin DesktopWindow MainScreen
       Cancel          =   False
       Caption         =   "Play Skyrim"
       Default         =   False
-      Enabled         =   False
+      Enabled         =   True
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
@@ -541,18 +541,16 @@ End
 		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_ORDER).WidthActual=(lsbWidth*0.15)
 		  Self.lsb_ModOrderList.ColumnAttributesAt(App.COL_DEPENDS).WidthActual=(lsbWidth*0.15)
 		  
-		  
-		  Utils.WriteFile(App.savedSettings,"BaseDir|"+_
-		  App.BaseDir.NativePath, True)
-		  Utils.WriteFile(App.savedSettings,"command7Zip|"+_
-		  App.command7Zip+ EndOfLine, False)
-		  Utils.WriteFile(App.savedSettings,"commandRar|"+_
-		  App.commandRar+ EndOfLine, False)
-		  Utils.WriteFile(App.savedSettings,"skyrimData|"+_
-		  App.skyrimData.NativePath+ EndOfLine, False)
-		  
 		  SharedModTools.PopulateLoadouts
 		  Self.pop_SavedLoadouts.SelectedRowIndex=0
+		  
+		  If(App.launchCommand="None" Or App.launchCommand="") Then
+		    Self.btn_PlaySkyrim.Enabled= False
+		    Self.btn_PlaySkyrim.Tooltip="Please set launch command in settings"
+		  Else
+		    Self.btn_PlaySkyrim.Enabled= True
+		    Self.btn_PlaySkyrim.Tooltip="Play Skyrim!"+EndOfLine+App.launchCommand
+		  End
 		  
 		  SkyrimModHandler.ReloadMods
 		End Sub
@@ -562,14 +560,6 @@ End
 	#tag MenuHandler
 		Function FileSettings() As Boolean Handles FileSettings.Action
 		  SettingsScreen.Show
-		  Return True
-		  
-		End Function
-	#tag EndMenuHandler
-
-	#tag MenuHandler
-		Function FileSKSEManager() As Boolean Handles FileSKSEManager.Action
-		  SkseScreen.Show
 		  Return True
 		  
 		End Function
@@ -602,6 +592,14 @@ End
 	#tag MenuHandler
 		Function HelpNexusPage() As Boolean Handles HelpNexusPage.Action
 		  
+		  Return True
+		  
+		End Function
+	#tag EndMenuHandler
+
+	#tag MenuHandler
+		Function ToolSKSEManager() As Boolean Handles ToolSKSEManager.Action
+		  SkseScreen.Show
 		  Return True
 		  
 		End Function
@@ -795,7 +793,7 @@ End
 #tag Events btn_PlaySkyrim
 	#tag Event
 		Sub Pressed()
-		  Utils.ShellCommand("steam steam://rungameid/489830",False,True)
+		  Utils.ShellCommand(App.launchCommand,False,False)
 		End Sub
 	#tag EndEvent
 #tag EndEvents

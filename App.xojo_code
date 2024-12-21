@@ -10,10 +10,6 @@ Inherits DesktopApplication
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
-		commandRar As String
-	#tag EndProperty
-
-	#tag Property, Flags = &h0
 		configsFolder As Folderitem
 	#tag EndProperty
 
@@ -27,6 +23,10 @@ Inherits DesktopApplication
 
 	#tag Property, Flags = &h0
 		enabledModsFile As Folderitem
+	#tag EndProperty
+
+	#tag Property, Flags = &h0
+		launchCommand As String = "steam steam://rungameid/489830"
 	#tag EndProperty
 
 	#tag Property, Flags = &h0
@@ -234,14 +234,6 @@ Inherits DesktopApplication
 			EditorType=""
 		#tag EndViewProperty
 		#tag ViewProperty
-			Name="commandRar"
-			Visible=false
-			Group="Behavior"
-			InitialValue=""
-			Type="String"
-			EditorType="MultiLineEditor"
-		#tag EndViewProperty
-		#tag ViewProperty
 			Name="command7Zip"
 			Visible=false
 			Group="Behavior"
@@ -256,6 +248,14 @@ Inherits DesktopApplication
 			InitialValue="False"
 			Type="Boolean"
 			EditorType=""
+		#tag EndViewProperty
+		#tag ViewProperty
+			Name="launchCommand"
+			Visible=false
+			Group="Behavior"
+			InitialValue="steam steam://rungameid/489830"
+			Type="String"
+			EditorType="MultiLineEditor"
 		#tag EndViewProperty
 	#tag EndViewBehavior
 End Class

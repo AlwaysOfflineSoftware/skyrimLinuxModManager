@@ -10,7 +10,7 @@ Begin DesktopWindow SettingsScreen
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   158
+   Height          =   194
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -49,7 +49,7 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   112
+      Top             =   148
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -80,7 +80,7 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   112
+      Top             =   148
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -319,11 +319,84 @@ Begin DesktopWindow SettingsScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   "Will load the backup of the plugins.txt file created on program first run."
-      Top             =   112
+      Top             =   148
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   126
+   End
+   Begin DesktopLabel lbl_Launch
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   27
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   18
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Launch Command:"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   98
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   142
+   End
+   Begin DesktopTextField txt_Launch
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   27
+      Hint            =   "steam steam://rungameid/489830"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   174
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   19
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   98
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Visible         =   True
+      Width           =   452
    End
 End
 #tag EndDesktopWindow
@@ -333,6 +406,7 @@ End
 		Sub Opening()
 		  Self.txt_DataFolder.Text= App.skyrimData.NativePath
 		  Self.txt_PluginFile.Text= App.BaseDir.NativePath
+		  Self.txt_Launch.Text= App.launchCommand
 		  
 		End Sub
 	#tag EndEvent
@@ -346,13 +420,29 @@ End
 		  If(Self.txt_PluginFile.Text.Trim<>"" And _
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
-		    App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
-		    App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
-		    
-		    Utils.WriteFile(App.savedSettings,"BaseDir|"+_
-		    App.BaseDir.NativePath, True)
-		    Utils.WriteFile(App.savedSettings,"skyrimData|"+_
-		    App.skyrimData.NativePath+ EndOfLine, False)
+		    If(Utils.ValidatePath(Self.txt_DataFolder.Text)) Then
+		      App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
+		      
+		      If(Utils.ValidatePath(Self.txt_PluginFile.Text)) Then
+		        
+		        App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
+		        App.launchCommand= SharedModTools.PrivilegeCommandCheck(Self.txt_Launch.Text)
+		        SharedModTools.SaveSettings()
+		        If(App.launchCommand="None" Or App.launchCommand="") Then
+		          MainScreen.btn_PlaySkyrim.Enabled= False
+		          MainScreen.btn_PlaySkyrim.Tooltip="Please set launch command in settings"
+		        Else
+		          MainScreen.btn_PlaySkyrim.Enabled= True
+		          MainScreen.btn_PlaySkyrim.Tooltip="Play Skyrim!"+EndOfLine+App.launchCommand
+		        End
+		        
+		      Else
+		        utils.GeneratePopup(1,"Invalid Plugin field","Please fill in all fields with valid values.")
+		      End
+		      
+		    Else
+		      utils.GeneratePopup(1,"Invalid Data field","Please fill in all fields with valid values.")
+		    End
 		    
 		    SettingsScreen.close
 		  Else

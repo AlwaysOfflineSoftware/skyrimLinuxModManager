@@ -8,6 +8,7 @@
 				End
 				Begin SignProjectStep Sign
 				  DeveloperID=
+				  macOSEntitlements={"App Sandbox":"False","Hardened Runtime":"False","Notarize":"False","UserEntitlements":""}
 				End
 			End
 			Begin BuildStepList Windows

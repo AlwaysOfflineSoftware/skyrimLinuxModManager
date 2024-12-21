@@ -22,6 +22,32 @@ Protected Module SharedModTools
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Sub LoadSettings(rawSettings As String)
+		  
+		  If(App.savedSettings<>Nil) Then
+		    Var settingsContent() As String= rawSettings.Split(EndOfLine)
+		    If(settingsContent.Count>2) Then
+		      If(Utils.ValidatePath(settingsContent(0))) Then
+		        App.BaseDir= New FolderItem(settingsContent(0))
+		      End
+		      If(Utils.ValidatePath(settingsContent(1))) Then
+		        App.skyrimData= New FolderItem(settingsContent(1))
+		      End
+		      App.launchCommand= SharedModTools.PrivilegeCommandCheck(settingsContent(2))
+		    Else
+		      Utils.GeneratePopup(3,"Something went wrong!","settings file will be reset")
+		      App.savedSettings.Remove
+		    End
+		  End
+		  
+		  Exception err As RuntimeException
+		    Utils.GeneratePopup(3,"Something went wrong!","settings file will be reset")
+		    App.savedSettings.Remove
+		    Return
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub MoveModOrder(MoveUP as boolean)
 		  If(MainScreen.lsb_ModOrderList.SelectedRowIndex<>-1) Then
 		    Var modListBox As DesktopListBox= MainScreen.lsb_ModOrderList
@@ -127,6 +153,27 @@ Protected Module SharedModTools
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PrivilegeCommandCheck(riskyLaunchCommand as String) As String
+		  Var tempLaunchCommand As String= riskyLaunchCommand
+		  
+		  // System.DebugLog(tempLaunchCommand)
+		  If(tempLaunchCommand.Trim<>"") Then
+		    If(tempLaunchCommand.Lowercase.Contains("sudo") Or _
+		      tempLaunchCommand.Lowercase.Contains("pkexec")) Then
+		      Utils.GeneratePopup(1,"Privilege Escalation Detected!!!", _
+		      "You should never need to run a videogame as an admin!")
+		      Return ""
+		    Else
+		      Return tempLaunchCommand.Trim
+		    End
+		  Else
+		    Return ""
+		  End
+		  
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub RevertToOriginal()
 		  If(App.BaseDir.child("Plugins.txt.bak").Exists) Then
 		    App.manualModsFile.Remove
@@ -163,6 +210,14 @@ Protected Module SharedModTools
 		  Next
 		  
 		  
+		End Sub
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Sub SaveSettings()
+		  Utils.WriteFile(App.savedSettings,App.BaseDir.NativePath, True)
+		  Utils.WriteFile(App.savedSettings,App.skyrimData.NativePath+ EndOfLine, False)
+		  Utils.WriteFile(App.savedSettings,App.launchCommand+ EndOfLine, False)
 		End Sub
 	#tag EndMethod
 

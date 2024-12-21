@@ -10,7 +10,7 @@ Begin DesktopWindow OpeningScreen
    HasFullScreenButton=   False
    HasMaximizeButton=   True
    HasMinimizeButton=   True
-   Height          =   150
+   Height          =   188
    ImplicitInstance=   True
    MacProcID       =   0
    MaximumHeight   =   32000
@@ -49,7 +49,7 @@ Begin DesktopWindow OpeningScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   104
+      Top             =   142
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -80,7 +80,7 @@ Begin DesktopWindow OpeningScreen
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   104
+      Top             =   142
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -294,6 +294,79 @@ Begin DesktopWindow OpeningScreen
       Visible         =   True
       Width           =   80
    End
+   Begin DesktopLabel lbl_Launch
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   27
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   20
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   False
+      LockTop         =   True
+      Multiline       =   False
+      Scope           =   2
+      Selectable      =   False
+      TabIndex        =   16
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   "Launch Command:"
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   98
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      Width           =   142
+   End
+   Begin DesktopTextField txt_Launch
+      AllowAutoDeactivate=   True
+      AllowFocusRing  =   True
+      AllowSpellChecking=   False
+      AllowTabs       =   False
+      BackgroundColor =   &cFFFFFF
+      Bold            =   False
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Format          =   ""
+      HasBorder       =   True
+      Height          =   27
+      Hint            =   "steam steam://rungameid/489830"
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   174
+      LockBottom      =   False
+      LockedInPosition=   False
+      LockLeft        =   True
+      LockRight       =   True
+      LockTop         =   True
+      MaximumCharactersAllowed=   0
+      Password        =   False
+      ReadOnly        =   False
+      Scope           =   0
+      TabIndex        =   17
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Text            =   ""
+      TextAlignment   =   0
+      TextColor       =   &c000000
+      Tooltip         =   ""
+      Top             =   98
+      Transparent     =   False
+      Underline       =   False
+      ValidationMask  =   ""
+      Visible         =   True
+      Width           =   452
+   End
 End
 #tag EndDesktopWindow
 
@@ -314,23 +387,30 @@ End
 		  If(Self.txt_PluginFile.Text.Trim<>"" And _
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
-		    App.BaseDir= FolderItem(Self.txt_PluginFile)
-		    App.skyrimData= FolderItem(Self.txt_DataFolder)
-		    
-		    Utils.WriteFile(App.savedSettings,"BaseDir|"+_
-		    App.BaseDir.NativePath, True)
-		    Utils.WriteFile(App.savedSettings,"command7Zip|"+_
-		    App.command7Zip, False)
-		    Utils.WriteFile(App.savedSettings,"commandRar|"+_
-		    App.commandRar, False)
-		    Utils.WriteFile(App.savedSettings,"skyrimData|"+_
-		    App.skyrimData.NativePath, False)
-		    
-		    If(App.setupNotAutomatic) Then
-		      App.setupNotAutomatic= False
-		      MainScreen.show
-		      OpeningScreen.close
+		    If(Utils.ValidatePath(Self.txt_DataFolder.Text)) Then
+		      App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
+		      
+		      If(Utils.ValidatePath(Self.txt_PluginFile.Text)) Then
+		        
+		        App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
+		        If(Self.txt_Launch.Text<>"") Then
+		          App.launchCommand= SharedModTools.PrivilegeCommandCheck(Self.txt_Launch.Text)
+		        Else
+		          App.launchCommand="None"
+		        End
+		        
+		        SharedModTools.SaveSettings()
+		        
+		      Else
+		        utils.GeneratePopup(1,"Invalid Plugin field","Please fill in all fields with valid values.")
+		      End
+		      
+		    Else
+		      utils.GeneratePopup(1,"Invalid Data field","Please fill in all fields with valid values.")
 		    End
+		    
+		    MainScreen.Show
+		    OpeningScreen.close
 		  Else
 		    utils.GeneratePopup(1,"Empty or Invalid field","Please fill in all fields with valid values.")
 		  End
