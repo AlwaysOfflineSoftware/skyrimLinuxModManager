@@ -421,13 +421,29 @@ End
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
 		    If(Utils.ValidatePath(Self.txt_DataFolder.Text)) Then
-		      App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
+		      If(Self.txt_PluginFile.Text.Contains("~/")) Then
+		        App.skyrimData= New FolderItem(Self.txt_DataFolder.Text.Replace("~/",_
+		        SpecialFolder.UserHome.NativePath))
+		      Else
+		        App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
+		      End
 		      
 		      If(Utils.ValidatePath(Self.txt_PluginFile.Text)) Then
+		        If(Self.txt_PluginFile.Text.Contains("~/")) Then
+		          App.BaseDir= New FolderItem(Self.txt_PluginFile.Text.Replace("~/",_
+		          SpecialFolder.UserHome.NativePath))
+		        Else
+		          App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
+		        End
 		        
-		        App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
-		        App.launchCommand= SharedModTools.PrivilegeCommandCheck(Self.txt_Launch.Text)
+		        If(Self.txt_Launch.Text<>"") Then
+		          App.launchCommand= SharedModTools.PrivilegeCommandCheck(Self.txt_Launch.Text)
+		        Else
+		          App.launchCommand="None"
+		        End
+		        
 		        SharedModTools.SaveSettings()
+		        
 		        If(App.launchCommand="None" Or App.launchCommand="") Then
 		          MainScreen.btn_PlaySkyrim.Enabled= False
 		          MainScreen.btn_PlaySkyrim.Tooltip="Please set launch command in settings"
@@ -435,7 +451,6 @@ End
 		          MainScreen.btn_PlaySkyrim.Enabled= True
 		          MainScreen.btn_PlaySkyrim.Tooltip="Play Skyrim!"+EndOfLine+App.launchCommand
 		        End
-		        
 		      Else
 		        utils.GeneratePopup(1,"Invalid Plugin field","Please fill in all fields with valid values.")
 		      End

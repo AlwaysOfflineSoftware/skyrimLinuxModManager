@@ -388,11 +388,21 @@ End
 		    Self.txt_DataFolder.Text.Trim<>"") Then
 		    
 		    If(Utils.ValidatePath(Self.txt_DataFolder.Text)) Then
-		      App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
+		      If(Self.txt_PluginFile.Text.Contains("~/")) Then
+		        App.skyrimData= New FolderItem(Self.txt_DataFolder.Text.Replace("~/",_
+		        SpecialFolder.UserHome.NativePath))
+		      Else
+		        App.skyrimData= New FolderItem(Self.txt_DataFolder.Text)
+		      End
 		      
 		      If(Utils.ValidatePath(Self.txt_PluginFile.Text)) Then
+		        If(Self.txt_PluginFile.Text.Contains("~/")) Then
+		          App.BaseDir= New FolderItem(Self.txt_PluginFile.Text.Replace("~/",_
+		          SpecialFolder.UserHome.NativePath))
+		        Else
+		          App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
+		        End
 		        
-		        App.BaseDir= New FolderItem(Self.txt_PluginFile.Text)
 		        If(Self.txt_Launch.Text<>"") Then
 		          App.launchCommand= SharedModTools.PrivilegeCommandCheck(Self.txt_Launch.Text)
 		        Else
