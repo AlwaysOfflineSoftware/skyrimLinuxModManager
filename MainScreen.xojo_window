@@ -399,7 +399,7 @@ Begin DesktopWindow MainScreen
       TabIndex        =   13
       TabPanelIndex   =   0
       TabStop         =   True
-      Tooltip         =   "Coming Soon!"
+      Tooltip         =   "Launches Skyrim!"
       Top             =   358
       Transparent     =   False
       Underline       =   False
@@ -817,7 +817,7 @@ End
 		      Utils.GeneratePopup(1,selectedZipMod.Name + " was Installed!","(Probably)")
 		    Else
 		      Utils.GeneratePopup(3,selectedZipMod.Name + " Failed!",_
-		      "Please check the file is an actual zip and ensure it is in a not privileged place!")
+		      "Please check the file is an archive, accessable and not a Fomod!")
 		    End
 		  End
 		  

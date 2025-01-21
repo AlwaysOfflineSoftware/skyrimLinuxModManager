@@ -56,6 +56,41 @@ Protected Module SkyrimModHandler
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function CheckForFomod(modToInstall as folderItem) As Boolean
+		  Var isFomod As Boolean= False
+		  Var tempTestDir As folderItem= Utils.CreateFolderStructure(SpecialFolder.UserHome,_
+		  ".config/AlwaysOfflineSoftware/SkyrimLinuxModder/temp/")
+		  
+		  Var TestDir As String = """"+SpecialFolder.Resources.NativePath _
+		  + "7zzs"" x % -o" + """"+tempTestDir.NativePath+""" -y"
+		  
+		  Utils.ShellCommand(TestDir.Replace("%",""""+modToInstall.NativePath+""""), False, False)
+		  
+		  For Each item As FolderItem In tempTestDir.Children
+		    If(item.IsFolder And item.Name.Lowercase.Contains("fomod")) Then
+		      isFomod= True
+		      item.RemoveFolderAndContents
+		      Continue
+		    End
+		    
+		    If(item.IsFolder) Then
+		      item.RemoveFolderAndContents
+		      Continue
+		    End
+		    
+		    item.Remove
+		  next
+		  
+		  If(isFomod) Then
+		    Utils.GeneratePopup(3,"Fomod Detected!",_
+		    "The installer doesn't support Fomods (yet). Please manually install this one")
+		  End
+		  
+		  Return isFomod
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Sub DependAdd()
 		  
 		End Sub
@@ -89,29 +124,31 @@ Protected Module SkyrimModHandler
 		Function InstallMod(modToInstall as folderitem, batchmode as boolean = False, modType as integer = 0) As Boolean
 		  Var itemArr() As String= modToInstall.Name.Split(".")
 		  Var last As Integer= itemArr.LastIndex
+		  Var isFomod As Boolean= CheckForFomod(modToInstall)
 		  
-		  System.DebugLog(itemArr(last))
-		  If(itemArr(last)="zip") Then
-		    modToInstall.Unzip(App.SkyrimData)
-		    Return True
-		  ElseIf(itemArr(last)="7z") Then
-		    System.DebugLog(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""))
-		    Utils.ShellCommand(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""), False, False)
-		    Return True
-		  ElseIf(itemArr(last)="rar") Then
-		    System.DebugLog(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""))
-		    Utils.ShellCommand(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""), False, False)
-		    Return True
-		  Else
-		    
-		    If(Not batchmode) Then
-		      Utils.GeneratePopup(3,"Unsupported archive format",_
-		      "Please extract manually and archive as a zip file")
+		  // System.DebugLog(itemArr(last))
+		  If(Not isFomod) Then
+		    If(itemArr(last)="zip") Then
+		      modToInstall.Unzip(App.SkyrimData)
+		      Return True
+		    ElseIf(itemArr(last)="7z") Then
+		      // System.DebugLog(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""))
+		      Utils.ShellCommand(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""), False, False)
+		      Return True
+		    ElseIf(itemArr(last)="rar") Then
+		      // System.DebugLog(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""))
+		      Utils.ShellCommand(App.command7Zip.Replace("%",""""+modToInstall.NativePath+""""), False, False)
+		      Return True
+		    Else
+		      
+		      If(Not batchmode) Then
+		        Utils.GeneratePopup(3,"Unsupported archive format",_
+		        "Please extract manually and archive as a zip file")
+		      End
 		    End
-		    
-		    Return False
 		  End
 		  
+		  Return False
 		End Function
 	#tag EndMethod
 
@@ -234,7 +271,7 @@ Protected Module SkyrimModHandler
 		      App.skyrimData= SpecialFolder.UserHome.child(".local").child("share").child("Steam")_
 		      .child("steamapps").child("common").child("Skyrim Special Edition").child("Data")
 		    Else
-		      App.skyrimData= Nil
+		      App.BaseDir= Nil
 		      App.skyrimData= Nil
 		      App.launchCommand= ""
 		    End

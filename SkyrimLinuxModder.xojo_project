@@ -18,6 +18,7 @@ Folder=Tooling;Tooling;&h0000000072FB3FFF;&h0000000000000000;false
 Module=SkyrimModHandler;Functions/SkyrimModHandler.xojo_code;&h000000000B2EBFFF;&h000000004F2F87FF;false
 Module=SKSEHandler;Functions/SKSEHandler.xojo_code;&h0000000004FB27FF;&h000000004F2F87FF;false
 Module=SharedModTools;Functions/SharedModTools.xojo_code;&h000000000EEA6FFF;&h000000004F2F87FF;false
+Module=ExtensionHandler;Functions/ExtensionHandler.xojo_code;&h000000006B15F7FF;&h000000004F2F87FF;false
 Module=Utils;Functions/Utils.xojo_code;&h000000007CF497FF;&h000000004F2F87FF;false
 MultiImage=img_XojoLogo;Assets/img_XojoLogo.xojo_image;&h000000005BA5FFFF;&h0000000017ACCFFF;false
 MultiImage=img_Skyrim;Assets/img_Skyrim.xojo_image;&h000000000527AFFF;&h0000000017ACCFFF;false

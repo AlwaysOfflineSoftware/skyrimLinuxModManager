@@ -41,14 +41,6 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
-      Begin DesktopMenuItem ToolModderPlugins
-         SpecialMenu = 0
-         Index = -2147483648
-         Text = "Modder Plugins"
-         AutoEnabled = False
-         AutoEnable = False
-         Visible = True
-      End
    End
    Begin DesktopMenuItem HelpMenu
       SpecialMenu = 0
