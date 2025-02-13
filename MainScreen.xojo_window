@@ -450,7 +450,7 @@ Begin DesktopWindow MainScreen
       Height          =   26
       Index           =   -2147483648
       Italic          =   False
-      Left            =   20
+      Left            =   21
       LockBottom      =   False
       LockedInPosition=   False
       LockLeft        =   True
@@ -817,7 +817,7 @@ End
 		      Utils.GeneratePopup(1,selectedZipMod.Name + " was Installed!","(Probably)")
 		    Else
 		      Utils.GeneratePopup(3,selectedZipMod.Name + " Failed!",_
-		      "Please check the file is an archive, accessable and not a Fomod!")
+		      "Please check the file is an archive format, has correct permissions and not a Fomod!")
 		    End
 		  End
 		  

@@ -41,6 +41,23 @@ Begin Menu MainMenuBar
          AutoEnable = True
          Visible = True
       End
+      Begin DesktopMenuItem ToolsModderExt
+         SpecialMenu = 0
+         Index = -2147483648
+         Text = "Modder Extentions"
+         AutoEnabled = False
+         AutoEnable = False
+         SubMenu = True
+         Visible = False
+         Begin DesktopMenuItem ext_1
+            SpecialMenu = 0
+            Index = 1
+            Text = "Example"
+            AutoEnabled = True
+            AutoEnable = True
+            Visible = True
+         End
+      End
    End
    Begin DesktopMenuItem HelpMenu
       SpecialMenu = 0

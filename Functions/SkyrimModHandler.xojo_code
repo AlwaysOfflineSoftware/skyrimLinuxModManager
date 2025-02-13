@@ -258,7 +258,7 @@ Protected Module SkyrimModHandler
 		  Else
 		    Utils.WriteFile(App.savedSettings,"", True)
 		    
-		    If( Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
+		    If(Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
 		      ".local/share/Steam/steamapps/compatdata/489830/pfx/drive_c/users/steamuser/AppData/Local/Skyrim Special Edition") And _
 		      Utils.ValidatePath(SpecialFolder.UserHome.NativePath+ _
 		      ".local/share/Steam/steamapps/common/Skyrim Special Edition/Data")) Then
@@ -281,13 +281,14 @@ Protected Module SkyrimModHandler
 		    App.command7Zip= """"+SpecialFolder.Resources.NativePath _
 		    + "7zzs"" x % -o" + """"+App.skyrimData.NativePath+""" -y"
 		    
-		    App.manualModsFile= App.BaseDir.child("Plugins.txt")
-		    
-		    If(App.manualModsFile=Nil) Then
-		      Utils.WriteFile(App.manualModsFile,_
+		    If(Utils.ValidatePath(App.BaseDir.NativePath+"Plugins.txt")) Then
+		      App.manualModsFile= App.BaseDir.child("Plugins.txt")
+		    Else
+		      Utils.WriteFile(App.BaseDir.NativePath+"Plugins.txt",_
 		      "# This file is used by Skyrim to keep track of your downloaded content.",False)
-		      Utils.WriteFile(App.manualModsFile,_
+		      Utils.WriteFile(App.BaseDir.NativePath+"Plugins.txt",_
 		      "# Please do not modify this file." + EndOfLine,False)
+		      App.manualModsFile= App.BaseDir.child("Plugins.txt")
 		    End
 		    
 		    SharedModTools.BackupOriginal
