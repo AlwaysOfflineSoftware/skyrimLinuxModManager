@@ -6,6 +6,8 @@ A Linux native mod manager for Skyrim
 
 <dl>
   <b>If you play this game on Linux and want to use this  <a class="gumroad-button" href="https://www.nexusmods.com/skyrimspecialedition/mods/128507?tab=description">Download it on Nexus!</a></b>
+  
+  (This is where you can get the latest bug fixes and version)
 </dl>
 
 ![App_Screenshot](https://github.com/user-attachments/assets/e87bdf78-4983-4faf-933c-a2bd22142ec4)
